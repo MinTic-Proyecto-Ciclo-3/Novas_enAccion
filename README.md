@@ -7,4 +7,4 @@ Nuestro grupo está conformado por:
 * Angie Zulay Remolina Anzola 
 * Natalia Sánchez Guarnizo
 
-Si quieres conocer un poco acerca de cada uno de nosotros dirigete a las ramas que tienen los nombres de los integrantes y encontrarás un archivo con una pequeña presentación.
+Si quieres conocer un poco acerca de cada uno de nosotros dirigete a las ramas que tienen los nombres de los integrantes.
