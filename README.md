@@ -1,10 +1,4 @@
-# Novatos_enAcción
-Hola, en este repositorio encontrarás toda la información necesaria para nuestro proyecto del ciclo 3 en MisiónTic.
-Nuestro grupo está conformado por:
-* Santiago Carvajal Lara  
-* Natalia Doria Moreno   
-* José Alejandro Pedraza Rojas  
-* Angie Zulay Remolina Anzola 
-* Natalia Sánchez Guarnizo
+# Santiago Carvajal Lara
 
-Si quieres conocer un poco acerca de cada uno de nosotros dirigete a las ramas que tienen los nombres de los integrantes y encontrarás un archivo con una pequeña presentación.
+Mucho gusto, yo soy Santiago Carvajal Lara el actual desarrolador del equipo "Novatos en accion", soy un estudiante, curso tercer semestre de Ingenieria Informatica del Instituto Universitario Politecnico Jaime Isaza Cadavid, reside en el departamento de Antioquia en el mucipio de Carepa en la zona de Uraba.
+
