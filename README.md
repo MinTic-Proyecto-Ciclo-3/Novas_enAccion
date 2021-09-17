@@ -8,3 +8,5 @@ Nuestro grupo está conformado por:
 * Natalia Sánchez Guarnizo
 
 Si quieres conocer un poco acerca de cada uno de nosotros dirigete a las ramas que tienen los nombres de los integrantes y encontrarás un archivo con una pequeña presentación.
+
+- Soy Jose Alejandro Pedraza Rojas; Scrum Master del Sprint 1 en este proyecto llamado Novatos en acción
