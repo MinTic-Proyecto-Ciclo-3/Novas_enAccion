@@ -8,3 +8,5 @@ Nuestro grupo está conformado por:
 * Natalia Sánchez Guarnizo
 
 Si quieres conocer un poco acerca de cada uno de nosotros dirigete a las ramas que tienen los nombres de los integrantes y encontrarás un archivo con una pequeña presentación.
+
+Mi nombre es Angie Zulay Remolina Anzola. Soy Ingeniera Ambiental y de Saneamiento, tengo 26 años de edad. Soy Product Owner del equipo "Novatos en acción".
