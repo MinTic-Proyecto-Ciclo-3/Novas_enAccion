@@ -1,6 +1,4 @@
 # Novatos_enAcción
-Hola
+Hola Mi nombre es Natalia Sanchez Guarnizo Estudiante de Administracion  de empresas vivo en Bogota, tengo 27 años y me desempeñare como Analista para el proyecto del ciclo 3 de MinTic. 
 
-Mi nombre es Natalia Sanchez Guarnizo Estudiante de Administracion  de empresas vivo en Bogota, tengo 27 años y me desempeñare como Analista para el proyecto del ciclo 3 de MinTic. 
-Actualmente me desempeño en el area de recaudo en la empresa ATH. 
 
