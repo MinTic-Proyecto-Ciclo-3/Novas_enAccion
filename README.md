@@ -9,4 +9,5 @@ Nuestro grupo está conformado por:
 
 
 - Soy Jose Alejandro Pedraza Rojas; Scrum Master del Sprint 1 en este proyecto llamado Novatos en acción
+- Soy Santiago Carvajal Lara el actual desarrollador del equipo "Novatos en accion", soy un estudiante, curso tercer semestre de Ingenieria Informatica del Instituto Universitario Politecnico Jaime Isaza Cadavid, resido en el departamento de Antioquia en el mucipio de Carepa en la zona de Uraba.
 
