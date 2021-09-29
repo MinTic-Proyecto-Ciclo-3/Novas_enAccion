@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const Modulo_vendedores = () => {
+export const ModuloMventas = () => {
     return (
         <div>
             
@@ -8,4 +8,4 @@ export const Modulo_vendedores = () => {
     )
 }
 
-export default Modulo_vendedores;
+export default ModuloMventas;
