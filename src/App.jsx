@@ -1,27 +1,25 @@
 import Layout from 'layouts/Layout';
-import Index from 'pages';
-import Bordercollie from 'pages/bordercollie';
-import RhodesianInfoPage from 'pages/rhodesian';
+import Index from './pages/Index';
+import Modulo_vendedores from 'pages/Modulo_vendedores';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import 'styles/styles.css';
+import './app.css';
 
 function App() {
   return (
     <div className='App'>
       <Router>
-        <Layout>
-          <Switch>
-            <Route path='/rhodesian'>
-              <RhodesianInfoPage />
-            </Route>
-            <Route path='/bordercollie'>
-              <Bordercollie />
+        <Switch>
+          <Layout>
+            <Switch>
+            <Route path='/Modulo_vendedores'>
+              <Modulo_vendedores/>
             </Route>
             <Route path='/'>
               <Index />
-            </Route>
-          </Switch>
-        </Layout>
+            </Route>     
+            </Switch> 
+          </Layout>
+        </Switch>
       </Router>
     </div>
   );

@@ -2,10 +2,10 @@ import logo from 'media/logo.png';
 
 const Header = () => {
   return (
-    <header>
-      <ul className='navbar'>
+    <header className='bg-green-200'>
+      <ul className='flex space-x-px'>
         <li>
-          <img src={logo} alt='imagen' className='logo' />
+          <img src={logo} alt='imagen' className='w-14' />
         </li>
         <li>
           <button className='botonGenerico mainButton'>HOME</button>
@@ -28,37 +28,3 @@ const Header = () => {
 };
 
 export default Header;
-
-// const variableNumerica = 3;
-// const variableTexto = 'esto es un texto';
-// const variableArray = [1, 2, 3, 4, 5, 5];
-// const variableObjeto = {
-//   llave1: 'valor1',
-//   llave2: 'valor2',
-//   llave3: 'valor3',
-// };
-// const listaObjetos = [
-//   {
-//     llave1: 'valor1',
-//     llave2: 'valor2',
-//     llave3: 'valor3',
-//   },
-//   {
-//     llave1: 'valor1',
-//     llave2: 'valor2',
-//     llave3: 'valor3',
-//   },
-//   {
-//     llave1: 'valor1',
-//     llave2: 'valor2',
-//     llave3: 'valor3',
-//   },
-// ];
-
-// const nombreFuncion = (in1, in2, in3) => {
-//   return 'retorno de la funcion';
-// };
-
-// function nombreFuncion(in1, in2, in3) {
-//   return 'retorno de la funcion';
-// }
