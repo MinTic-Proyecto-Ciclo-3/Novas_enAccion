@@ -11,12 +11,15 @@ function App() {
         <Switch>
           <Layout>
             <Switch>
-            <Route path='/ModuloVendedores'>
+             <Route path='/ModuloVendedores'>
               <ModuloVendedores/>
-            </Route>
-            <Route path='/'>
-              <index />
-            </Route>     
+             </Route>
+             <Route path='/ModuloMventas'>
+              <ModuloMventas/>
+             </Route>
+             <Route path='/'>
+                <index />
+              </Route>     
             </Switch> 
           </Layout>
         </Switch>
