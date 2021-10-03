@@ -1,12 +1,20 @@
 import { useDarkMode } from 'context/darkMode';
 import React from 'react';
+import logo from 'media/Fond1ej.jpg';
 
 const Index = () => {
   const { darkMode } = useDarkMode();
   return (
-    <div className={`flex h-full bg-gray-${darkMode ? '900' : '50'}`}>
-      Contenido Landing Concesionario
+
+    <span class="decoration-clone bg-gradient-to-b from-yellow-400 to-red-500 text-transparent ...">
+    Hello
+    World
+    <div className={`flex w-full bg-gray-${darkMode ? '900' : '500'}`}>
+      
+      <img src={logo} alt='imagen'className='w-150'/>
     </div>
+    </span>
+    
   );
 };
 

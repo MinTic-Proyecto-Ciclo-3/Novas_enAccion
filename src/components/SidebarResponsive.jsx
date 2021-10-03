@@ -25,7 +25,7 @@ const SidebarResponsive = () => {
 const ResponsiveRoute = ({ ruta, nombre }) => {
   return (
     <Link to={ruta}>
-      <li className='text-gray-200 border border-gray-300 p-1'>{nombre}</li>
+      <li className='text-gray-400 border border-gray-300 p-1'>{nombre}</li>
     </Link>
   );
 };

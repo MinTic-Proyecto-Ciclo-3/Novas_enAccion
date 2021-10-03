@@ -5,7 +5,7 @@ const Login = () => {
   return (
     <div className='flex flex-col w-full justify-center items-center'>
       <h2 className='m-3 text-center text-3xl font-extrabold text-gray-900'>
-        Inicia sesión en tu cuenta
+      Ingreso seguro
       </h2>
       <form className='mt-8 max-w-md'>
         <div>
@@ -40,6 +40,9 @@ const Login = () => {
         <div>O</div>
         <div>
           <button>Continua con google</button>
+        </div>
+        <div>
+          <button>Continua con facebook</button>
         </div>
       </form>
     </div>
