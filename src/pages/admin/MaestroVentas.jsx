@@ -1,8 +1,13 @@
+import React, { useEffect, useState, useRef } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import axios from 'axios';
+import 'react-toastify/dist/ReactToastify.css';
+
 const Ventas = () => {
-    const [mostrarTabla, setMostrarTabla] = useState(true);
-    const [ventas, setVentas] = useState([]);
-    const [textoBoton, setTextoBoton] = useState('Crear Nuevo Vehículo');
-    const [colorBoton, setColorBoton] = useState('indigo');
+  const [mostrarTabla, setMostrarTabla] = useState(true);
+  const [ventas, setVentas] = useState([]);
+  const [textoBoton, setTextoBoton] = useState('Crear Nuevo Ventas');
+  const [colorBoton, setColorBoton] = useState('indigo');
   
     useEffect(() => {
       const obtenerVentas = async () => {
@@ -10,25 +15,25 @@ const Ventas = () => {
         await axios
           .request(options)
           .then(function (response) {
-            setVehiculos(response.data);
+            setVentas(response.data);
           })
           .catch(function (error) {
             console.error(error);
           });
       };
   
-      //obtener lista de vehículos desde el backend
+      //obtener lista de ventas desde el backend
       if (mostrarTabla) {
-        obtenerVehiculos();
+        obtenerVentas();
       }
     }, [mostrarTabla]);
   
     useEffect(() => {
       if (mostrarTabla) {
-        setTextoBoton('Crear Nuevo Vehículo');
+        setTextoBoton('Crear Nueva Venta');
         setColorBoton('indigo');
       } else {
-        setTextoBoton('Mostrar Todos los vehículos');
+        setTextoBoton('Mostrar Todos las ventas');
         setColorBoton('green');
       }
     }, [mostrarTabla]);
@@ -36,7 +41,7 @@ const Ventas = () => {
       <div className='flex h-full w-full flex-col items-center justify-start p-8'>
         <div className='flex flex-col'>
           <h2 className='text-3xl font-extrabold text-gray-900'>
-            Página de administración de vehículos
+            Página de administración de ventas
           </h2>
           <button
             onClick={() => {
@@ -48,12 +53,12 @@ const Ventas = () => {
           </button>
         </div>
         {mostrarTabla ? (
-          <TablaVehiculos listaVehiculos={vehiculos} />
+          <TablaVentas listaVentas={ventas} />
         ) : (
-          <FormularioCreacionVehiculos
+          <FormularioCreacionVentas
             setMostrarTabla={setMostrarTabla}
-            listaVehiculos={vehiculos}
-            setVehiculos={setVehiculos}
+            listaVentas={ventas}
+            setVentas={setVentas}
           />
         )}
         <ToastContainer position='bottom-center' autoClose={5000} />
@@ -61,28 +66,29 @@ const Ventas = () => {
     );
   };
   
-  const TablaVehiculos = ({ listaVehiculos }) => {
+  const TablaVentas = ({ listaVentas }) => {
     useEffect(() => {
-      console.log('este es el listado de vehiculos en el componente de tabla', listaVehiculos);
-    }, [listaVehiculos]);
+      console.log('este es el listado de ventas en el componente de tabla', listaVentas);
+    }, [listaVentas]);
     return (
       <div className='flex flex-col items-center justify-center'>
-        <h2 className='text-2xl font-extrabold text-gray-800'>Todos los vehículos</h2>
+        <h2 className='text-2xl font-extrabold text-gray-800'>Todos los productos</h2>
         <table>
           <thead>
             <tr>
-              <th>Nombre del vehículo</th>
-              <th>Marca del vehículo</th>
-              <th>Modelo del vehículo</th>
+              <th>Nombre de la venta</th>
+              <th>Marca del venta</th>
+              <th>Modelo del venta</th>
+              <th>Metodo de pago</th>
             </tr>
           </thead>
           <tbody>
-            {listaVehiculos.map((vehiculo) => {
+            {listaVentas.map((ventas) => {
               return (
                 <tr>
-                  <td>{vehiculo.name}</td>
-                  <td>{vehiculo.brand}</td>
-                  <td>{vehiculo.model}</td>
+                  <td>{ventas.name}</td>
+                  <td>{ventas.brand}</td>
+                  <td>{ventas.model}</td>
                 </tr>
               );
             })}
@@ -92,34 +98,34 @@ const Ventas = () => {
     );
   };
   
-  const FormularioCreacionVehiculos = ({ setMostrarTabla, listaVehiculos, setVehiculos }) => {
+  const FormularioCreacionVentas = ({ setMostrarTabla, listaVentas, setVentas }) => {
     const form = useRef(null);
   
     const submitForm = async (e) => {
       e.preventDefault();
       const fd = new FormData(form.current);
   
-      const nuevoVehiculo = {};
+      const nuevaVentas = {};
       fd.forEach((value, key) => {
-        nuevoVehiculo[key] = value;
+        nuevaVentas[key] = value;
       });
   
       const options = {
         method: 'POST',
         url: 'https://vast-waters-45728.herokuapp.com/vehicle/create',
         headers: { 'Content-Type': 'application/json' },
-        data: { name: nuevoVehiculo.name, brand: nuevoVehiculo.brand, model: nuevoVehiculo.model },
+        data: { name: nuevaVentas.name, brand: nuevaVentas.brand, model: nuevaVentas.model },
       };
   
       await axios
         .request(options)
         .then(function (response) {
           console.log(response.data);
-          toast.success('Vehículo agregado con éxito');
+          toast.success('Venta agregado con éxito');
         })
         .catch(function (error) {
           console.error(error);
-          toast.error('Error creando un vehículo');
+          toast.error('Error creando una venta');
         });
   
       setMostrarTabla(true);
@@ -127,10 +133,10 @@ const Ventas = () => {
   
     return (
       <div className='flex flex-col items-center justify-center'>
-        <h2 className='text-2xl font-extrabold text-gray-800'>Crear nuevo vehículo</h2>
+        <h2 className='text-2xl font-extrabold text-gray-800'>Crear nueva venta</h2>
         <form ref={form} onSubmit={submitForm} className='flex flex-col'>
           <label className='flex flex-col' htmlFor='nombre'>
-            Nombre del vehículo
+            Nombre de la venta
             <input
               name='name'
               className='bg-gray-50 border border-gray-600 p-2 rounded-lg m-2'
@@ -140,7 +146,7 @@ const Ventas = () => {
             />
           </label>
           <label className='flex flex-col' htmlFor='marca'>
-            Marca del vehículo
+            Marca de la venta
             <select
               className='bg-gray-50 border border-gray-600 p-2 rounded-lg m-2'
               name='brand'
@@ -150,21 +156,21 @@ const Ventas = () => {
               <option disabled value={0}>
                 Seleccione una opción
               </option>
-              <option>Renault</option>
-              <option>Toyota</option>
-              <option>Ford</option>
-              <option>Mazda</option>
-              <option>Chevrolet</option>
+              <option>Camiseta</option>
+              <option>Camisa</option>
+              <option>Pantalon</option>
+              <option>Pantaloneta</option>
+              <option>Esqueleto</option>
             </select>
           </label>
           <label className='flex flex-col' htmlFor='modelo'>
-            Modelo del vehículo
+            Modelo de la venta
             <input
               name='model'
               className='bg-gray-50 border border-gray-600 p-2 rounded-lg m-2'
               type='number'
-              min={1992}
-              max={2022}
+              min={2020}
+              max={2021}
               placeholder='2014'
               required
             />
@@ -174,12 +180,12 @@ const Ventas = () => {
             type='submit'
             className='col-span-2 bg-green-400 p-2 rounded-full shadow-md hover:bg-green-600 text-white'
           >
-            Guardar vehiculo
+            Guardar venta
           </button>
         </form>
       </div>
     );
   };
   
-  export default Vehiculos;
+  export default Ventas;
   

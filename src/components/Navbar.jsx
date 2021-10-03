@@ -4,7 +4,7 @@ import TriggerDarkMode from './TriggerDarkMode';
 import logo from 'media/logo copy.png';
 const Navbar = () => {
   return (
-    <nav className='bg-indigo-500 text-white rounded-lg'>
+    <nav className='bg-gray-800 text-white rounded-lg'>
       <ul className='flex w-full justify-between my-3'>
         <li>
         <img src={logo} alt='imagen'className='w-16'/>
