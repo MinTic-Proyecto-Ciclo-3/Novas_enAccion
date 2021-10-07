@@ -4,7 +4,7 @@ import { TodoList } from "./components/TodoList";
 
 const KEY = "todoApp.todos";
 
-export function App() {
+export function ModuloMventas() {
   const todoTaskRef = useRef();
   const [todos, setTodos] = useState([
     { id: 1, task: "Tarea ", completed: false },
@@ -57,3 +57,5 @@ export function App() {
     </Fragment>
   );
 }
+
+export default ModuloMventas;
