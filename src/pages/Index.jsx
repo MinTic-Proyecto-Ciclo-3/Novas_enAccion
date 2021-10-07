@@ -11,7 +11,7 @@ const Index = () => {
     World
     <div className={`flex w-full bg-gray-${darkMode ? '900' : '500'}`}>
       
-      <img src={logo} alt='imagen'className='w-150'/>
+      <img src={logo} alt='imagen'className='w-150 opacity=100'/>
     </div>
     </span>
     

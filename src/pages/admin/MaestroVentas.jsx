@@ -7,7 +7,7 @@ const Ventas = () => {
   const [mostrarTabla, setMostrarTabla] = useState(true);
   const [ventas, setVentas] = useState([]);
   const [textoBoton, setTextoBoton] = useState('Crear Nuevo Ventas');
-  const [colorBoton, setColorBoton] = useState('indigo');
+  const [colorBoton, setColorBoton] = useState('gray');
   
     useEffect(() => {
       const obtenerVentas = async () => {

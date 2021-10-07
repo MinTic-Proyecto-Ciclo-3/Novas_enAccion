@@ -3,20 +3,20 @@ import { Link } from 'react-router-dom';
 
 const Login = () => {
   return (
-    <div className='flex flex-col w-full justify-center items-center'>
-      <h2 className='m-3 text-center text-3xl font-extrabold text-gray-900'>
+    <div className='flex flex-col w-full justify-center items-center text-green-900'>
+      <h2 className='m-3 text-center text-3xl font-extrabold text-green-900'>
       Ingreso seguro
       </h2>
       <form className='mt-8 max-w-md'>
         <div>
           <input
-            className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
+            className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-green-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
             type='email'
-            placeholder='dsl@c.com'
+            placeholder='Digite correo'
             required
           />
           <input
-            className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
+            className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-green-500 focus:z-10 sm:text-sm'
             type='password'
             required
           />
@@ -41,9 +41,7 @@ const Login = () => {
         <div>
           <button>Continua con google</button>
         </div>
-        <div>
-          <button>Continua con facebook</button>
-        </div>
+
       </form>
     </div>
   );

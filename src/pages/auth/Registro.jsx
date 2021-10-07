@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 const Registro = () => {
   return (
     <>
+    
       <h2 className='mt-6 text-center text-3xl font-extrabold text-gray-900'>Crea tu cuenta</h2>
       <form className='mt-8 space-y-6'>
         <div className='rounded-md shadow-sm grid grid-cols-2 gap-2'>
@@ -15,7 +16,7 @@ const Registro = () => {
               autoComplete='email'
               required
               className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
-              placeholder='Daniel'
+              placeholder='Digite por favor nombre'
             />
           </label>
           <label htmlFor='apellido'>
@@ -25,7 +26,7 @@ const Registro = () => {
               type='text'
               required
               className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
-              placeholder='Saldarriaga'
+              placeholder='Digite Apellido'
             />
           </label>
           <label htmlFor='telefono'>
@@ -35,7 +36,7 @@ const Registro = () => {
               type='tel'
               required
               className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
-              placeholder='3213213210'
+              placeholder='Digite por favor los 10 numeros'
             />
           </label>
           <label htmlFor='nacimiento'>

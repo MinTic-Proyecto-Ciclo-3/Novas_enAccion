@@ -5,8 +5,9 @@ import { Link } from 'react-router-dom';
 const Login = () => {
   return (
     <>
-      <div className='max-w-md w-full space-y-8'>
-        <h2 className='mt-6 text-center text-3xl font-extrabold text-gray-900'>
+    
+      <div className='max-w-md w-full space-y-8 '>
+        <h2 className='mt-6 text-center text-3xl font-extrabold text-gray-900 backdrop-filter backdrop-blue backdrop-contrast-0'>
           Inicia sesión seguro
         </h2>
         <form className='mt-8 space-y-6'>

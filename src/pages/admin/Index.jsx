@@ -5,7 +5,9 @@ const Admin = () => {
   return <div className={`flex h-full w-full bg-gray-${darkMode ? '900' : '50'}`}>
 
   
-  
+
+
+
   
   </div>;
   

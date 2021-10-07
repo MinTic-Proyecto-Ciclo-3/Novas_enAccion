@@ -2,15 +2,10 @@ import React from 'react';
 import logo from 'media/logo copy.png';
 
 const Footer = () => {
-  return <div className='bg-gray-400'><ul>
-  <button class="bg-blue-700 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded-full">
-  Telefonos: 6123234 - 6231313
-  </button>
-  <button class="bg-blue-700 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded-full">
-  Correo Electronico: noobstore@correo.com
-  </button>
-  Proyecto academico para MinTic2022
+  return <div className='bg-gray-400 font-extrabold '><ul>
 
+  <li><a href="http://">Proyecto academico para MinTic2022</a></li>
+            <li>&#300;Team Novatos en Acción ♥</li>
 
   </ul></div>;
 };
