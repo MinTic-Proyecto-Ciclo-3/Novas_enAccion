@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from 'media/logo copy.png';
+
 
 const Footer = () => {
   return <div className='bg-gray-400 font-extrabold '><ul>

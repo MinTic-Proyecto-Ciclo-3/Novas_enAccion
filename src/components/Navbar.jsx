@@ -9,17 +9,16 @@ const Navbar = () => {
         <li>
         <img src={logo} alt='imagen'className='w-16'p-4/>
         </li>
-        <li>NOVATOS EN ACCION</li>
-        <li>HISTORIA</li>
+        
        
       
-        <li className='px-4'>
+        <li className='flex space-between px-4'>
           <Link to='/login'>
-            <button className='bg-green-500 p-2 text-white rounded-lg shadow-md hover:bg-indigo-700'>
+            <button className='m-2 bg-green-500 p-2 text-white rounded-lg shadow-md hover:bg-indigo-700'>
               Iniciar Sesion
             </button>
             <Link to='/registro'>
-            <button className='bg-green-500 p-2 text-white rounded-lg shadow-md hover:bg-indigo-700'>
+            <button className='m-2 bg-green-500 p-2 text-white rounded-lg shadow-md hover:bg-indigo-700'>
               Registrate
             </button>
             </Link>
