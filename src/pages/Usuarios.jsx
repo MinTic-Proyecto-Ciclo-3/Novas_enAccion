@@ -78,8 +78,9 @@ const Usuarios = () => {
                         <td>{usuarios.nombre}</td>
                         <td>{usuarios.tipo}</td>
                         <td>{usuarios.estado}</td>
-                        <td><button className='mx-2 px-3 py-2 bg-green-500 text-white hover:bg-green-700 rounded-md shadow-md'> Editar </button>
-                        <button className='mx-2 px-3 py-2 bg-red-500 text-white hover:bg-red-700 rounded-md shadow-md'> Eliminar </button></td>
+                        <td><button onClick={(e)=>{toast.success('Usuario actualizado')}} className='mx-2 px-3 py-2 bg-green-500 text-white hover:bg-green-700 rounded-md shadow-md'> Editar
+                         </button>
+                        <button  onClick={(e)=>{toast.error('Usuario eliminado')}} className='mx-2 px-3 py-2 bg-red-500 text-white hover:bg-red-700 rounded-md shadow-md'> Eliminar </button></td>
                          
                     </tr>
                     )
