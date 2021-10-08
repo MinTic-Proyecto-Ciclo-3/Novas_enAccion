@@ -5,12 +5,13 @@
 
 .tabla {
   width: 100%;
-  /* margin: 10px; */
+  padding: 10px;
+  margin: 10px; 
   overflow-y: scroll;
 }
 
 td, th {
-  padding: 8px;
+  padding: 10px;
   /* width: 25%; */
   /* border: 1px solid #ddd; */
   text-align: center;
@@ -31,4 +32,46 @@ td, th {
 .tabla tr:hover {
   background-color: #ddd;
   cursor: pointer;
+}
+
+input{
+  border: 1px double #999;
+  border-radius: 5px;
+  margin: 0%;
+  -webkit-appearance: none;
+}
+
+form{
+  padding: 15px;
+  max-width: 400px;
+  background-color: #E7E7E7;
+  margin: 20px auto;
+}
+
+form input, form textarea{
+  margin-bottom: 15px;
+  font-family: "Roboto", sans-serif;
+  width: 100%;
+  padding: 10px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box; 
+  border: none; 
+  color: #525c66; 
+  font-size: 1em;
+  resize: horizontal; 
+}
+
+form button {
+	display: block;
+	background-color: #0095eb;
+	padding: 10px 45px 10px 45px;
+  margin: 10px;
+	border-radius: 10px;
+	font-size: 1em; 
+	color: 	white;
+  font-family: "Roboto", sans-serif;
+}
+
+form button:hover{
+	background-color: #046193;
 }

@@ -51,13 +51,24 @@ const ventasBackend = [
     Estado:'Completada',
   },
 
+  {
+    IDventa:12486,
+    Cant:100,
+    PrecioUni:5000,
+    Fecha:'5-9-2017',
+    IDcliente:1326541265,
+    nameCliente:'Liliana',
+    Monto:500000,
+    nameVendedor:'Gabriel',
+    Estado:'Completada',
+  },
+
 ];
 
 const Venta = () => {
   const [mostrarTabla, setMostrarTabla] = useState(true);
   const [venta, setVenta] = useState([]);
   const [textoBoton, setTextoBoton] = useState('Nuevo registro');
-  const [colorBoton, setColorBoton] = useState('indigo');
 
   useEffect(() => {
     //obtener lista de vehículos desde el backend
@@ -67,16 +78,14 @@ const Venta = () => {
   useEffect(() => {
     if (mostrarTabla) {
       setTextoBoton('Nuevo registro');
-      setColorBoton('indigo');
     } else {
       setTextoBoton('Mostrar todas la ventas');
-      setColorBoton('green');
     }
   }, [mostrarTabla]);
   return (
     <div className='flex h-full w-full flex-col items-center justify-start p-8'>
       <div className='flex flex-col w-full'>
-        <h2 className='text-3xl font-extrabold'>
+        <h2 className='text-3xl font-extrabold m-4'>
           Página de gestion de ventas
         </h2>
         <button
@@ -121,8 +130,8 @@ const Tabla = ({listaVentas}) => {
                   <th>Monto de compra</th>
                   <th>Nombre del vendedor</th>
                   <th>Estado de la venta</th>
-                  <th></th>
-                  <th></th>
+                  <th>Acciones</th>
+                  
               </thead>
               <tbody>
                   {listaVentas.map((venta)=>{
@@ -137,8 +146,8 @@ const Tabla = ({listaVentas}) => {
                               <td>{venta.Monto}</td>
                               <td>{venta.nameVendedor}</td>
                               <td>{venta.Estado}</td>
-                              <td><button className='mx-2 px-3 py-2 bg-green-500 text-white hover:bg-green-700 rounded-md shadow-md'> Editar </button></td>
-                              <td><button className='mx-2 px-3 py-2 bg-red-500 text-white hover:bg-red-700 rounded-md shadow-md'> Eliminar </button></td>
+                              <td className='flex'><button className='mx-2 px-3 py-2 bg-green-500 text-white hover:bg-green-700 rounded-md shadow-md'> Editar </button>
+                              <button className='mx-2 px-3 py-2 bg-red-500 text-white hover:bg-red-700 rounded-md shadow-md'> Eliminar </button></td>
                           </tr>
                       );
                   })}
@@ -169,10 +178,10 @@ const NuevoReg = ( setMostrarTabla, listaVenta, setVenta ) => {
 };
 
   return(
-      <div className='flex flex-col items-center justify-center' >
-          <h2 className='text-2xl font-extrabold text-gray-800' >Registrar nueva venta</h2>
+      <div className='flex flex-col justify-center' >
+          <h2 className='text-2xl font-extrabold text-gray-800 m-3' >Registrar nueva venta</h2>
           <form ref={form} onSubmit={submitForm} className='flex flex-col' >
-              <label className='flex flex-col' htmlFor="IDventa">
+              <label className='' htmlFor="IDventa">
               Identificacion de la venta
               <input 
                   name="IDventa"
@@ -185,7 +194,7 @@ const NuevoReg = ( setMostrarTabla, listaVenta, setVenta ) => {
               />
               </label>
 
-              <label className='flex ' htmlFor="Cant">
+              <label className='' htmlFor="Cant">
               Cantidad de productos
               <input 
                   name="Cant"
@@ -198,7 +207,7 @@ const NuevoReg = ( setMostrarTabla, listaVenta, setVenta ) => {
               />
               </label>
 
-              <label className='flex ' htmlFor="PrecioUni">
+              <label className='' htmlFor="PrecioUni">
               Precio de unidad
               <input 
                   name="PrecioUni"
@@ -211,7 +220,7 @@ const NuevoReg = ( setMostrarTabla, listaVenta, setVenta ) => {
               />
               </label>
 
-              <label className='flex flex-col' htmlFor="Fecha">
+              <label className='' htmlFor="Fecha">
               Fecha de compra
               <input 
                   name="Fecha"
@@ -224,7 +233,7 @@ const NuevoReg = ( setMostrarTabla, listaVenta, setVenta ) => {
               />
               </label>
 
-              <label className='flex ' htmlFor="IDclinte">
+              <label className='' htmlFor="IDclinte">
                   Identificacion del cliente
                   <input 
                   name="IDcliente"
@@ -236,7 +245,7 @@ const NuevoReg = ( setMostrarTabla, listaVenta, setVenta ) => {
                   />
               </label>
 
-              <label className='flex ' htmlFor="nameCliente">
+              <label className='' htmlFor="nameCliente">
                   Nombre del cliente
                   <input 
                   name="nameCliente"
@@ -246,7 +255,7 @@ const NuevoReg = ( setMostrarTabla, listaVenta, setVenta ) => {
                   />
               </label>
 
-              <label className='flex flex-col' htmlFor="Monto">
+              <label className='' htmlFor="Monto">
               Monto total de compra
                   <input 
                   name="Monto"
@@ -257,7 +266,7 @@ const NuevoReg = ( setMostrarTabla, listaVenta, setVenta ) => {
                   />
               </label>
 
-              <label className='flex ' htmlFor="nameVendedor">
+              <label className='' htmlFor="nameVendedor">
                   Nombre del vendedor
                   <input 
                   name="nameVendedor"
@@ -267,7 +276,7 @@ const NuevoReg = ( setMostrarTabla, listaVenta, setVenta ) => {
                   />
               </label>
 
-              <label className='flex ' htmlFor="Estado">
+              <label className='' htmlFor="Estado">
                   Estado de la venta
                   <select 
                   name="Estado" 
@@ -284,7 +293,7 @@ const NuevoReg = ( setMostrarTabla, listaVenta, setVenta ) => {
               </label>
               <button
               type='submit'
-              className='col-span-2 bg-green-400 p-2 rounded-full shadow-md hover:bg-green-600 text-white'
+              // className='col-span-2 bg-green-400 p-2 rounded-full shadow-md hover:bg-green-600 text-white'
               >
               Guardar vehiculo
               </button>
@@ -292,5 +301,5 @@ const NuevoReg = ( setMostrarTabla, listaVenta, setVenta ) => {
       </div>
   );
 }
-  
+
   export default Venta;
