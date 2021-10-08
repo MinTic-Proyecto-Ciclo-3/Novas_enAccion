@@ -71,7 +71,7 @@ const Venta = () => {
   const [textoBoton, setTextoBoton] = useState('Nuevo registro');
 
   useEffect(() => {
-    //obtener lista de vehículos desde el backend
+    
     setVenta(ventasBackend);
   }, []);
 
@@ -171,10 +171,7 @@ const NuevoReg = ( setMostrarTabla, listaVenta, setVenta ) => {
 
   setMostrarTabla(true)
   setVenta([listaVenta, nuevaVenta]);
-  // identificar el caso de éxito y mostrar un toast de éxito
-  // toast.success('Vehículo agregado con éxito');
-  // identificar el caso de error y mostrar un toast de error
-  // toast.error('Error creando un vehículo');
+  
 };
 
   return(
@@ -295,7 +292,7 @@ const NuevoReg = ( setMostrarTabla, listaVenta, setVenta ) => {
               type='submit'
               // className='col-span-2 bg-green-400 p-2 rounded-full shadow-md hover:bg-green-600 text-white'
               >
-              Guardar vehiculo
+              Guardar venta
               </button>
           </form>
       </div>
