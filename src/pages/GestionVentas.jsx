@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useRef } from 'react';
-
-
+import React, {useEffect, useState, useRef} from 'react'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ventasBackend = [
   {
@@ -104,10 +104,8 @@ const Venta = () => {
           setMostrarTabla={setMostrarTabla}
           listaVentas={venta}
           setVenta={setVenta}
-        />
-        
-      )}
-
+        />)}
+         <ToastContainer position="bottom-center" autoClose={5000}/>
     </div>
   );
 };
@@ -157,7 +155,7 @@ const Tabla = ({listaVentas}) => {
   );
 }
 
-const NuevoReg = ( setMostrarTabla, listaVenta, setVenta ) => {
+const NuevoReg = ({setMostrarTabla, listaVentas, setVenta}) => {
   const form = useRef(null);
 
   const submitForm = (e) => {
@@ -168,9 +166,10 @@ const NuevoReg = ( setMostrarTabla, listaVenta, setVenta ) => {
   fd.forEach((value, key) => {
     nuevaVenta[key] = value;
   });
-
-  setMostrarTabla(true)
-  setVenta([listaVenta, nuevaVenta]);
+  
+  toast.success('Usuario agregado');
+  setMostrarTabla(true);
+  setVenta([...listaVentas, nuevaVenta]);
   
 };
 
