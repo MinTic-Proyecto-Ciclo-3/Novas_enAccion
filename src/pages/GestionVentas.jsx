@@ -222,9 +222,9 @@ const NuevoReg = ({setMostrarTabla, listaVentas, setVenta}) => {
                   name="Fecha"
                   className=""
                   type="date" 
-                  min='1-1-2000'
-                  max='6-10-2021'
-                  placeholder="5/9/2021"
+                  min="2000-01-01"
+                  max={new Date().toISOString().split("T")[0]}                                       
+                  step="1"
                   required
               />
               </label>
