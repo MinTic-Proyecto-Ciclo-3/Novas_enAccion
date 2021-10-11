@@ -30,7 +30,7 @@ const productosBackend = [
     }
 ]
 
-export const Productos = () => {
+export const MasterProductos = () => {
 
     const [mostrarTabla, setMostrarTabla] = useState(true);
     const [textoBoton, setTextoBoton] = useState('Crear Nuevo Producto');
@@ -61,10 +61,11 @@ export const Productos = () => {
                 className='text-white bg-indigo-500 p-4 rounded-md' >{textoBoton}</button>
             </div>
             {
-                mostrarTabla ? <TablaProductos listaProductos={productos} /> : 
+                mostrarTabla ? (<TablaProductos listaProductos={productos} />): 
                 (<AgregarProducto 
-                funcionMostrarTabla={setMostrarTabla} 
-                funcionParaAgregarProducto={setProductos} 
+                    funcionMostrarTabla={setMostrarTabla}
+                    listaProductos = {productos}
+                    funcionParaAgregarProducto={setProductos} 
                 />)
             }
             <ToastContainer position='bottom-center' autoClose={5000} />
@@ -74,7 +75,7 @@ export const Productos = () => {
     )
 }
 
-const TablaProductos = ({ listaProductos })=> {
+const TablaProductos = ({ listaProductos})=> {
 
     const mensajeEdicionExitosa=() =>{
         toast.success('Se han guardado las modificaciones');
@@ -115,9 +116,10 @@ const TablaProductos = ({ listaProductos })=> {
         </div>
     )
 }
-const AgregarProducto = ({funcionMostrarTabla}) => {
+const AgregarProducto = ({funcionMostrarTabla, listaProductos,funcionParaAgregarProducto }) => {
+    
     const [codigo, setCodigo] = useState();
-    const [nombreProducto, setNombreProducto] = useState();
+    const [nombreProducto, setNombreProducto] = useState('');
     const [precio, setPrecio] = useState();
     const [cantidadDisponible, setCantidadDisponible] = useState();
 
@@ -125,6 +127,7 @@ const AgregarProducto = ({funcionMostrarTabla}) => {
         console.log('codigo', codigo, 'nombre', nombreProducto, 'precio', precio, 'cantidad disponible', cantidadDisponible);
         toast.success('Producto agregado exitosamente');
         funcionMostrarTabla(true);
+        funcionParaAgregarProducto([...listaProductos, {codigo:codigo, nombre:nombreProducto, precio:precio, cantidad:cantidadDisponible}]);
     };
 
     return (
@@ -141,7 +144,8 @@ const AgregarProducto = ({funcionMostrarTabla}) => {
             value={codigo}
             onChange={(e)=>{
                 setCodigo(e.target.value);
-            }} 
+            }}
+            required
             />
           </label>
           <label className='flex flex-col items-center' htmlFor='nombreProducto'>
@@ -152,7 +156,8 @@ const AgregarProducto = ({funcionMostrarTabla}) => {
             value={nombreProducto}
             onChange={(e)=>{
                 setNombreProducto(e.target.value);
-            }} 
+            }}
+            required
             />
           </label>
           <label className='flex flex-col items-center' htmlFor='precio'>
@@ -164,7 +169,8 @@ const AgregarProducto = ({funcionMostrarTabla}) => {
             value={precio}
             onChange={(e)=>{
                 setPrecio(e.target.value);
-            }} 
+            }}
+            required 
             />
           </label>
           <label className='flex flex-col items-center' htmlFor='cantidad'>
@@ -176,15 +182,17 @@ const AgregarProducto = ({funcionMostrarTabla}) => {
             value={cantidadDisponible}
             onChange={(e)=>{
                 setCantidadDisponible(e.target.value);
-            }} 
+            }}
+            required 
             />
           </label>
-          <button className='bg-indigo-400 text-white font-bold col-span-1 rounded-full p-2 my-3' 
-          type='button'
-          onClick={enviarAlBackend}
+          <button
+            type='submit'
+            className='bg-indigo-400 text-white font-bold col-span-1 rounded-full p-2 my-3' 
+            onClick={enviarAlBackend}
           >Guardar</button>
         </form>
       </div>
     )
 }
-export default Productos;
+export default MasterProductos;
