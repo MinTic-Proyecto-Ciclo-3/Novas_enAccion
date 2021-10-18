@@ -52,7 +52,7 @@ export const MasterProductos = () => {
     },[mostrarTabla]);
 
     return (
-        <div className='flex flex-col h-screen w-full items-center justify-start bg-purple-50'>
+        <div className='flex flex-col h-screen w-full items-center justify-start bg-purple-white'>
             <div className='flex flex-col p-8'>
                 <h2 className='text-3xl font-bold text-gray-800 p-2' >Página de administración de productos</h2>
                 <button onClick={()=> {
@@ -88,7 +88,7 @@ const TablaProductos = ({ listaProductos})=> {
                             <input className='border-0 outline-none' placeholder="Busque un producto..."/>
                             <i class="fas fa-search"></i>
                         </div>
-            <table>
+            <table className='tabla'>
                 <thead>
                     <tr>
                         <th className='pr-4 py-3'>Código producto</th>
@@ -97,7 +97,7 @@ const TablaProductos = ({ listaProductos})=> {
                         <th className='pr-4 py-3'>Cantidad disponible</th>
                     </tr>
                 </thead>
-                <tbody className='divide-y-4'>
+                <tbody>
                     {listaProductos.map((productos)=>{
                         return(
                             <tr>
