@@ -1,5 +1,5 @@
 import React from 'react'
-import { useEffect, useState } from 'react/cjs/react.development'
+import { useEffect, useState, useRef } from 'react/cjs/react.development'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -30,7 +30,7 @@ const productosBackend = [
     }
 ]
 
-export const Productos = () => {
+export const MasterProductos = () => {
 
     const [mostrarTabla, setMostrarTabla] = useState(true);
     const [textoBoton, setTextoBoton] = useState('Crear Nuevo Producto');
@@ -52,7 +52,7 @@ export const Productos = () => {
     },[mostrarTabla]);
 
     return (
-        <div className='flex flex-col h-screen w-full items-center justify-start bg-purple-50'>
+        <div className='flex flex-col h-screen w-full items-center justify-start bg-purple-white'>
             <div className='flex flex-col p-8'>
                 <h2 className='text-3xl font-bold text-gray-800 p-2' >Página de administración de productos</h2>
                 <button onClick={()=> {
@@ -61,20 +61,20 @@ export const Productos = () => {
                 className='text-white bg-indigo-500 p-4 rounded-md' >{textoBoton}</button>
             </div>
             {
-                mostrarTabla ? <TablaProductos listaProductos={productos} /> : 
+                mostrarTabla ? (<TablaProductos listaProductos={productos} />): 
                 (<AgregarProducto 
-                funcionMostrarTabla={setMostrarTabla} 
-                funcionParaAgregarProducto={setProductos} 
+                    setMostrarTabla={setMostrarTabla}
+                    listaProductos = {productos}
+                    setProductos={setProductos} 
                 />)
             }
             <ToastContainer position='bottom-center' autoClose={5000} />
-
         </div>
 
     )
 }
 
-const TablaProductos = ({ listaProductos })=> {
+const TablaProductos = ({ listaProductos})=> {
 
     const mensajeEdicionExitosa=() =>{
         toast.success('Se han guardado las modificaciones');
@@ -88,7 +88,7 @@ const TablaProductos = ({ listaProductos })=> {
                             <input className='border-0 outline-none' placeholder="Busque un producto..."/>
                             <i class="fas fa-search"></i>
                         </div>
-            <table>
+            <table className='tabla'>
                 <thead>
                     <tr>
                         <th className='pr-4 py-3'>Código producto</th>
@@ -97,7 +97,7 @@ const TablaProductos = ({ listaProductos })=> {
                         <th className='pr-4 py-3'>Cantidad disponible</th>
                     </tr>
                 </thead>
-                <tbody className='divide-y-4'>
+                <tbody>
                     {listaProductos.map((productos)=>{
                         return(
                             <tr>
@@ -115,44 +115,66 @@ const TablaProductos = ({ listaProductos })=> {
         </div>
     )
 }
-const AgregarProducto = ({funcionMostrarTabla}) => {
-    const [codigo, setCodigo] = useState();
-    const [nombreProducto, setNombreProducto] = useState();
-    const [precio, setPrecio] = useState();
-    const [cantidadDisponible, setCantidadDisponible] = useState();
+const AgregarProducto = ({
+    setMostrarTabla, 
+    listaProductos,
+    setProductos 
+}) => {
+    const form = useRef(null);
+    // const [codigo, setCodigo] = useState();
+    // const [nombreProducto, setNombreProducto] = useState('');
+    // const [precio, setPrecio] = useState();
+    // const [cantidadDisponible, setCantidadDisponible] = useState();
 
-    const enviarAlBackend = () => {
-        console.log('codigo', codigo, 'nombre', nombreProducto, 'precio', precio, 'cantidad disponible', cantidadDisponible);
+    const submitForm = (e) => {
+        e.preventDefault();
+        const fd = new FormData(form.current);
+
+        const nuevoProducto = {};
+        fd.forEach((value, key) => {
+            nuevoProducto[key] = value;
+        });
+        setMostrarTabla(true);
+        setProductos([...listaProductos,nuevoProducto ]);
         toast.success('Producto agregado exitosamente');
-        funcionMostrarTabla(true);
     };
+
+    // const enviarAlBackend = () => {
+    //     console.log('codigo', codigo, 'nombre', nombreProducto, 'precio', precio, 'cantidad disponible', cantidadDisponible);
+    //     toast.success('Producto agregado exitosamente');
+    //     funcionMostrarTabla(true);
+    //     funcionParaAgregarProducto([...listaProductos, {codigo:codigo, nombre:nombreProducto, precio:precio, cantidad:cantidadDisponible}]);
+    // };
 
     return (
       // flex flex-col items-center justify-center w-screen h-screen bg-gray-200 text-gray-700
       <div className='flex flex-col justify-start items-center w-screen h-screen text-gray-700 font-semibold'>
-        <form className='flex flex-col bg-white py-10 px-20 shadow-lg rounded-xl '>
+        <form ref={form} onSubmit={submitForm} className='flex flex-col bg-white py-10 px-20 shadow-lg rounded-xl '>
           <h2 className='text-gray-900 text-2xl font-bold mb-5'  >Agregar producto</h2>
-          <label className='flex flex-col items-center' htmlFor='codigoProducto'>
+          <label className='flex flex-col items-center' htmlFor='codigo'>
             Código Producto
-            <input className='border border-gray-400 mb-4 rounded-md' 
-            name='codigoProducto' 
+            <input className='border-gray-600 mb-4 rounded-md' 
+            name='codigo' 
             type='number' 
             placeholder="7584"
-            value={codigo}
-            onChange={(e)=>{
-                setCodigo(e.target.value);
-            }} 
+            // value={codigo}
+            // onChange={(e)=>{
+            //     setCodigo(e.target.value);
+            // }}
+            required
             />
           </label>
-          <label className='flex flex-col items-center' htmlFor='nombreProducto'>
+          <label className='flex flex-col items-center' htmlFor='nombre'>
             Nombre Producto
             <input className='border border-gray-400 mb-4 rounded-md' 
-            name='nombreProducto' 
+            name='nombre'
+            type='text'
             placeholder="Camiseta Azul"
-            value={nombreProducto}
-            onChange={(e)=>{
-                setNombreProducto(e.target.value);
-            }} 
+            // value={nombreProducto}
+            // onChange={(e)=>{
+            //     setNombreProducto(e.target.value);
+            // }}
+            required
             />
           </label>
           <label className='flex flex-col items-center' htmlFor='precio'>
@@ -161,10 +183,11 @@ const AgregarProducto = ({funcionMostrarTabla}) => {
             name='precio' 
             type='number' 
             placeholder="25000"
-            value={precio}
-            onChange={(e)=>{
-                setPrecio(e.target.value);
-            }} 
+            // value={precio}
+            // onChange={(e)=>{
+            //     setPrecio(e.target.value);
+            // }}
+            required 
             />
           </label>
           <label className='flex flex-col items-center' htmlFor='cantidad'>
@@ -173,18 +196,20 @@ const AgregarProducto = ({funcionMostrarTabla}) => {
             name='cantidad' 
             type='number' 
             placeholder="575"
-            value={cantidadDisponible}
-            onChange={(e)=>{
-                setCantidadDisponible(e.target.value);
-            }} 
+            // value={cantidadDisponible}
+            // onChange={(e)=>{
+            //     setCantidadDisponible(e.target.value);
+            // }}
+            required 
             />
           </label>
-          <button className='bg-indigo-400 text-white font-bold col-span-1 rounded-full p-2 my-3' 
-          type='button'
-          onClick={enviarAlBackend}
+          <button
+            type='submit'
+            className='bg-indigo-400 text-white font-bold col-span-1 rounded-full p-2 my-3' 
+            //onClick={enviarAlBackend}
           >Guardar</button>
         </form>
       </div>
     )
 }
-export default Productos;
+export default MasterProductos;

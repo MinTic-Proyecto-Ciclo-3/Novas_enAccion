@@ -1,10 +1,11 @@
 import React from 'react';
 import ImagenLogo from './ImagenLogo';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 const Sidebar = () => {
   return (
-    <nav className='hidden sm:flex sm:w-72 border border-green-300 h-full flex-col bg-green-700 --tw-bg-opacity: 1;
+    <nav className='hidden sm:flex sm:w-72 h-full flex-col bg-green-600 --tw-bg-opacity: 1;
     background-color: rgba(16, 185, 129, var(--tw-bg-opacity)) p-4 sidebar'>
       <Link to='/admin'>
         <ImagenLogo />
@@ -15,15 +16,30 @@ const Sidebar = () => {
         <Ruta icono='fas fa-cash-register' ruta='/admin/Ventas' nombre='Maestro Ventas' />
         <Ruta icono='fas fa-users' ruta='/admin/Usuarios' nombre='Usuarios' />
       </div>
-      <button>Cerrar Sesión</button>
+      <Link to='/'>
+        <button className='bg-gray-800 hover:bg-gray-900 text-white font-bold py-3 px-6 rounded-full'>Cerrar Sesión</button>
+      </Link>
     </nav>
   );
 };
 
 const Ruta = ({ icono, ruta, nombre }) => {
+
+  const location = useLocation();
+  const [isActive, setIsActive] = useState(false);
+
+  useEffect(() => {
+    console.log(location, ruta);
+    if(location.pathname.includes(ruta)) {
+      setIsActive(true);
+    } else {
+      setIsActive(false);
+    }
+  }, [location, ruta])
+
   return (
     <Link to={ruta}>
-      <button className='p-1 my-2 bg-green-900 hover:bg-green-900 flex w-full items-center text-white rounded-md'>
+      <button className={`p-1 my-2 bg-${isActive ? "gray" : "green"}-800 hover:bg-green-900 flex w-full items-center text-white rounded-md`}>
         <i className={`${icono} w-10`} />
         {nombre}
       </button>
