@@ -9,30 +9,24 @@ const Usuarios = () => {
     const [mostrarTabla, setMostrarTabla] = useState(true);
     const [textoBoton, setTextoBoton] = useState('Crear Nuevo Usuario');
     const [usuarios, setUsuarios] = useState([]);
-    const [nuevaConsulta, setNuevaConsulta] = useState(true);
-
-    useEffect(()=>{
-        const obtenerUsuarios = async () =>{
-            const options = {method: 'GET', url: 'http://localhost:5000/usuarios'};
     
-        await axios
-        .request(options)
-        .then(function (response) {
-        console.log(response.data);
-        setUsuarios(response.data);
-        }).catch(function (error) {
-        console.error(error);
-        });}; 
-        if (nuevaConsulta){
-            obtenerUsuarios();
-            setNuevaConsulta(false);
-        }
-    }, [nuevaConsulta]);
+    
+    const obtenerUsuarios = async () =>{
+        const options = {method: 'GET', url: 'http://localhost:5000/usuarios'};
 
+    await axios
+    .request(options)
+    .then(function (response) {
+    console.log(response.data);
+    setUsuarios(response.data);
+    }).catch(function (error) {
+    console.error(error);
+    });}; 
+       
     useEffect(() => {
 
     if (mostrarTabla){
-      setNuevaConsulta(true);
+      obtenerUsuarios();
     }}, [mostrarTabla]);
 
     useEffect(() => {
@@ -51,7 +45,7 @@ const Usuarios = () => {
         className='text-black bg-indigo-400 p-5 rounded-full w-28 m-2 ml-80'>
         {textoBoton}</button>
     </div>
-        {mostrarTabla ? (<TablaUsuarios setNuevaConsulta={setNuevaConsulta} listausuarios={usuarios}/>) :
+        {mostrarTabla ? (<TablaUsuarios listausuarios={usuarios}/>) :
          (<FormularioUsuarios
             funcionMostrarTabla={setMostrarTabla} 
             listausuarios = {usuarios}
@@ -61,7 +55,7 @@ const Usuarios = () => {
     )    
 }
 
-const FilaUsuario = ({usuarios, setNuevaConsulta})=>{
+const FilaUsuario = ({usuarios})=>{
     const [edit,setEdit] = useState(false);
     const [infoNuevoUsuario, setInfoNuevoUsuario] = useState({
         nombre:usuarios.nombre,
@@ -81,7 +75,6 @@ const FilaUsuario = ({usuarios, setNuevaConsulta})=>{
           await axios.request(options).then(function (response) {
             console.log(response.data);
             toast.success('Usuario actualizado');
-            setNuevaConsulta(true);
           }).catch(function (error) {
             console.error(error);
             toast.error('Error actualizando usuario');
@@ -99,7 +92,6 @@ const FilaUsuario = ({usuarios, setNuevaConsulta})=>{
           axios.request(options).then(function (response) {
             console.log(response.data);
             toast.success('Usuario eliminado');
-            setNuevaConsulta(true);
           }).catch(function (error) {
             console.error(error);
             toast.error('Error eliminando usuario');
@@ -115,10 +107,10 @@ const FilaUsuario = ({usuarios, setNuevaConsulta})=>{
             onChange={(e)=>setInfoNuevoUsuario({...infoNuevoUsuario, nombre: (e).target.value})}/></td>
             <td><input type='text' 
             value={infoNuevoUsuario.tipo}
-            onChange={(e)=>setInfoNuevoUsuario({...infoNuevoUsuario, tipo: e.target.value})}/></td>
+            onChange={(e)=>setInfoNuevoUsuario({...infoNuevoUsuario, tipo: (e).target.value})}/></td>
             <td><input type='text' 
             value={infoNuevoUsuario.estado}
-            onChange={(e)=>setInfoNuevoUsuario({...infoNuevoUsuario, estado: e.target.value})}/></td>
+            onChange={(e)=>setInfoNuevoUsuario({...infoNuevoUsuario, estado: (e).target.value})}/></td>
         </> )
         : (   
         <>
@@ -131,24 +123,33 @@ const FilaUsuario = ({usuarios, setNuevaConsulta})=>{
                     <div className='flex w-full items-center justify-center text-center'>
                         {edit? (
                            <>
-                        <button>
-                        <i onClick={()=> 
+                        <button 
+                        onClick={()=> 
                             actualizarUsuario()
-                            }                      
+                            }   
+                        type='submit'>
+                        <i                    
                         className='fas fa-check text-green-700 mx-2 hover:text-green-500'/>
                         </button>
+                        <button type='button'>
                         <i 
                           className='fas fa-trash text-red-700 mx-2 hover:text-red-500'  />
+                          </button>
                            </>                        
                         ) : (
                         <div className='flex justify-around'>
-                        
-                        <i onClick={()=> setEdit(!edit)}
+                        <button 
+                        onClick={()=> setEdit(!edit)}
+                        type='button'>
+                        <i 
                         className='fas fa-pencil-alt text-yellow-700 mx-2 hover:text-yellow-500'/>
-                        
-                        <i onClick={()=>eliminarUsuario()}
+                        </button>
+                        <button 
+                        onClick={()=>eliminarUsuario()}
+                        type='submit'>
+                        <i 
                         className='fas fa-trash text-red-700 mx-2 hover:text-red-500'  />
-                         
+                         </button>
                          </div>
                         )}
                     </div>
@@ -157,7 +158,7 @@ const FilaUsuario = ({usuarios, setNuevaConsulta})=>{
     );    
 }
 
-const TablaUsuarios = ({listausuarios, setNuevaConsulta}) => {
+const TablaUsuarios = ({listausuarios}) => {
 
     const form = useRef(null);
     useEffect(()=>{
@@ -178,7 +179,7 @@ const TablaUsuarios = ({listausuarios, setNuevaConsulta}) => {
         </thead>
         <tbody>
             {listausuarios.map((usuarios) => {
-                return <FilaUsuario key={nanoid()} setNuevaConsulta={setNuevaConsulta} usuarios={usuarios} />;
+                return <FilaUsuario key={nanoid()} usuarios={usuarios} />;
             })}
         </tbody>
         </table>   
