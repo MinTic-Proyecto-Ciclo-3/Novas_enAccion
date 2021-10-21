@@ -21,6 +21,12 @@ const Venta = () => {
             console.error(error);
         });
     }; 
+  
+    useEffect(() => {
+
+      if (mostrarTabla){
+        obtenerVenta();
+      }}, [mostrarTabla]);
 
   useEffect(() => {
     if (mostrarTabla) {
@@ -207,7 +213,7 @@ const FilaVenta =({ venta, setEjecutarConsulta}) =>{
         </>
       ) : (
         <>
-          {/* <td>{venta.IDventa.slice(20)}</td> */}
+          <td>{venta.IDventa}</td>
           <td>{venta.Cant}</td>
           <td>{venta.PrecioUni}</td>
           <td>{venta.Fecha}</td>
@@ -452,6 +458,7 @@ funcionMostrarTabla(true);
                   </select>
               </label>
               <button
+              className='bg-gray-500'
               type='submit'
               // className='col-span-2 bg-green-400 p-2 rounded-full shadow-md hover:bg-green-600 text-white'
               >

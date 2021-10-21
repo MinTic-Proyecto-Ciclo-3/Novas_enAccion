@@ -159,9 +159,8 @@ const FilaUsuario = ({usuarios})=>{
 }
 
 const TablaUsuarios = ({listausuarios}) => {
-
-    const [busqueda, setBusqueda] = useState('');
     const [usuariosFiltrados, setUsuariosFiltrados] = useState(listausuarios);
+    const [busqueda, setBusqueda] = useState('');
 
     useEffect(()=>{
         console.log('busqueda', busqueda);
@@ -169,17 +168,15 @@ const TablaUsuarios = ({listausuarios}) => {
         listausuarios.filter(elemento=>{
             return JSON.stringify(elemento).toLowerCase().includes(busqueda.toLowerCase());
         }));
-    }, [busqueda]);
+    }, [busqueda, listausuarios]);
 
     const form = useRef(null);
-    useEffect(()=>{
-        console.log('Listado de usuarios',listausuarios);
-    }, [listausuarios]);
+ 
 
     return( 
         <div className='flex flex-col items-center justify-center w-full'>
         <input placeholder='Buscar'
-        value={busqueda}
+        
         onChange={(e)=> setBusqueda(e.target.value)}
         className='border border-gray-500 px-3 rounded-md self-center'  />
         <form ref={form} className='w-full'>
