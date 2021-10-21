@@ -160,13 +160,28 @@ const FilaUsuario = ({usuarios})=>{
 
 const TablaUsuarios = ({listausuarios}) => {
 
+    const [busqueda, setBusqueda] = useState('');
+    const [usuariosFiltrados, setUsuariosFiltrados] = useState(listausuarios);
+
+    useEffect(()=>{
+        console.log('busqueda', busqueda);
+        setUsuariosFiltrados(
+        listausuarios.filter(elemento=>{
+            return JSON.stringify(elemento).toLowerCase().includes(busqueda.toLowerCase());
+        }));
+    }, [busqueda]);
+
     const form = useRef(null);
     useEffect(()=>{
         console.log('Listado de usuarios',listausuarios);
     }, [listausuarios]);
 
     return( 
-        <div className='flex items-center justify-center w-full'>
+        <div className='flex flex-col items-center justify-center w-full'>
+        <input placeholder='Buscar'
+        value={busqueda}
+        onChange={(e)=> setBusqueda(e.target.value)}
+        className='border border-gray-500 px-3 rounded-md self-center'  />
         <form ref={form} className='w-full'>
         <table className='tabla w-full'>
         <thead>
@@ -178,7 +193,7 @@ const TablaUsuarios = ({listausuarios}) => {
             </tr>
         </thead>
         <tbody>
-            {listausuarios.map((usuarios) => {
+            {usuariosFiltrados.map((usuarios) => {
                 return <FilaUsuario key={nanoid()} usuarios={usuarios} />;
             })}
         </tbody>
