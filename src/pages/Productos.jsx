@@ -2,6 +2,7 @@ import React from 'react'
 import { useEffect, useState, useRef } from 'react/cjs/react.development'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { nanoid } from 'nanoid';
 
 const productosBackend = [
     {
@@ -75,19 +76,27 @@ export const MasterProductos = () => {
 }
 
 const TablaProductos = ({ listaProductos})=> {
+    const form = useRef(null);
 
     const mensajeEdicionExitosa=() =>{
         toast.success('Se han guardado las modificaciones');
     };
 
+    const submitEdit = (e)=> {
+        e.preventDefault();
+        const fd = new FormData(form.current);
+        console.log(e);
+
+    };
+
 
     return(
-        <div className='flex flex-col items-center justify-center bg-white py-10 px-20 shadow-lg rounded-xl'>
-            <h2 className='text-gray-900 text-2xl font-bold mb-5'>Todos los productos</h2>
-            <div className='flex justify-between bg-white border border-solid border-gray-500 p-1 rounded-md focus-within:border-purple-500'>
+        <div className='w-full mx-8'>
+            <h2 className='text-gray-900 text-2xl font-bold mb-5 m-8'>Todos los productos</h2>
+            <div className='flex justify-between bg-white border border-solid border-gray-500 p-1 rounded-md focus-within:border-purple-500 mx-8'>
                             <input className='border-0 outline-none' placeholder="Busque un producto..."/>
                             <i class="fas fa-search"></i>
-                        </div>
+            </div>
             <table className='tabla'>
                 <thead>
                     <tr>
@@ -95,19 +104,13 @@ const TablaProductos = ({ listaProductos})=> {
                         <th className='pr-4 py-3' >Nombre producto</th>
                         <th className='pr-4 py-3'>Precio</th>
                         <th className='pr-4 py-3'>Cantidad disponible</th>
+                        <th className='pr-4 py-3'>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     {listaProductos.map((productos)=>{
                         return(
-                            <tr>
-                                <td>{productos.codigo} </td>
-                                <td>{productos.nombre} </td>
-                                <td>{productos.precio} </td>
-                                <td>{productos.cantidad} </td>
-                                <td className='flex'><button onClick={mensajeEdicionExitosa} className='mx-2 px-3 py-2 bg-green-500 text-white hover:bg-green-700 rounded-md shadow-md'> Editar </button>
-                                <button className='mx-2 px-3 py-2 bg-red-500 text-white hover:bg-red-700 rounded-md shadow-md'> Eliminar </button></td>
-                            </tr>
+                            <FilaProducto key={nanoid()} productos={productos} />
                         )
                     })}
                 </tbody>
@@ -115,6 +118,68 @@ const TablaProductos = ({ listaProductos})=> {
         </div>
     )
 }
+
+const FilaProducto =({productos}) => {
+    const [edit, setEdit] = useState(false);
+
+    const actualizarVehiculo = ()=> {
+        console.log();
+    }
+
+
+    return(
+        <tr>
+            {edit ? (
+                <>
+                    <td>
+                        <input className='border border-gray-400 mb-4 rounded-md' type='text' defaultValue={productos.codigo} disabled />
+                    </td>
+                    <td>
+                        <input className='border border-gray-400 mb-4 rounded-md' type='text' defaultValue={productos.nombre}/>
+                    </td>
+                    <td>
+                        <input className='border border-gray-400 mb-4 rounded-md' type='text' defaultValue={productos.precio}/>
+                    </td>
+                    <td>
+                        <input className='border border-gray-400 mb-4 rounded-md' type='text' defaultValue={productos.cantidad}/>
+                    </td>
+                </>
+
+            ) : (
+                <>
+                <td>{productos.codigo} </td>
+                <td>{productos.nombre} </td>
+                <td>{productos.precio} </td>
+                <td>{productos.cantidad} </td>
+                </>
+            )
+            }
+            <td>
+                <div className='flex w-full justify-around'>
+                    
+                    {edit ? (
+                        <i 
+                        onClick={()=> actualizarVehiculo()} 
+                        className='fas fa-check text-green-700 hover:text-green-500' 
+                        />
+                    
+                    ): (
+                        <i 
+                        onClick={()=> setEdit(!edit)} 
+                        className="fas fa-edit hover:text-blue-500"
+                        />
+                    )
+
+                    }
+                    
+                    <i className="fas fa-trash-alt hover:text-red-600"></i>
+                </div>
+            </td>
+        </tr>
+
+    )
+}
+
 const AgregarProducto = ({
     setMostrarTabla, 
     listaProductos,
