@@ -4,10 +4,8 @@
 
 
 .tabla {
-  width: 100%;
   padding: 10px;
-  margin: 10px; 
-  overflow-y: scroll;
+     
 }
 
 td, th {
@@ -20,8 +18,6 @@ td, th {
 .tabla th {
   background-color: rgb(46, 180, 28);
   color: white;
-  padding-top: 12px;
-  padding-bottom: 12px;
   text-align: center;
 }
 
@@ -35,24 +31,19 @@ td, th {
 }
 
 input{
-  border: 1px double #999;
   border-radius: 5px;
-  margin: 0%;
   -webkit-appearance: none;
 }
 
 form{
-  padding: 15px;
-  max-width: 400px;
-  background-color: #E7E7E7;
+  padding: 10px;
   margin: 10px;
 }
 
 form input, form textarea{
-  margin-bottom: 15px;
+  
   font-family: "Roboto", sans-serif;
-  width: 100%;
-  padding: 10px;
+  padding: 2px;
   -webkit-box-sizing: border-box;
   box-sizing: border-box; 
   border: none; 
@@ -63,9 +54,8 @@ form input, form textarea{
 
 form button {
 	display: block;
-	background-color: #0095eb;
-	padding: 10px 45px 10px 45px;
-  margin: 10px;
+	padding: 5px 10px;
+  margin: 1px 2px 1px 2px;
 	border-radius: 10px;
 	font-size: 1em; 
 	color: 	white;
@@ -73,5 +63,5 @@ form button {
 }
 
 form button:hover{
-	background-color: #046193;
+	background-color: #045e93;
 }

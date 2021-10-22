@@ -1,79 +1,32 @@
 import React, {useEffect, useState, useRef} from 'react'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-const ventasBackend = [
-  {
-    IDventa:15266,
-    Cant:10,
-    PrecioUni:5000,
-    Fecha:'1-6-2020',
-    IDcliente:1192654199,
-    nameCliente:'Camilo',
-    Monto:50000,
-    nameVendedor:'Luis',
-    Estado:'Completada',
-  },
-
-  {
-    IDventa:17542,
-    Cant:5,
-    PrecioUni:20000,
-    Fecha:'9-12-2020',
-    IDcliente:1194652847,
-    nameCliente:'Santiago',
-    Monto:100000,
-    nameVendedor:'Gabriela',
-    Estado:'En proceso',
-  },
-
-  {
-    IDventa:19562,
-    Cant:20,
-    PrecioUni:1000,
-    Fecha:'28-4-2019',
-    IDcliente:1526453278,
-    nameCliente:'Andrea',
-    Monto:20000,
-    nameVendedor:'Laura',
-    Estado:'Cancelada',
-  },
-
-  {
-    IDventa:16456,
-    Cant:50,
-    PrecioUni:15000,
-    Fecha:'28-1-2011',
-    IDcliente:1326541265,
-    nameCliente:'Alejadandro',
-    Monto:750000,
-    nameVendedor:'Luis',
-    Estado:'Completada',
-  },
-
-  {
-    IDventa:12486,
-    Cant:100,
-    PrecioUni:5000,
-    Fecha:'5-9-2017',
-    IDcliente:1326541265,
-    nameCliente:'Liliana',
-    Monto:500000,
-    nameVendedor:'Gabriel',
-    Estado:'Completada',
-  },
-
-];
+import axios from "axios";
+import { nanoid } from 'nanoid';
 
 const Venta = () => {
   const [mostrarTabla, setMostrarTabla] = useState(true);
   const [venta, setVenta] = useState([]);
   const [textoBoton, setTextoBoton] = useState('Nuevo registro');
 
-  useEffect(() => {
-    
-    setVenta(ventasBackend);
-  }, []);
+  const obtenerVenta = async () =>{
+    const options = {method: 'GET', url: 'http://localhost:5000/api/ventas'};
+
+    await axios
+      .request(options)
+      .then(function (response) {
+        console.log(response.data);
+          setVenta(response.data);
+        }).catch(function (error) {
+            console.error(error);
+        });
+    }; 
+  
+    useEffect(() => {
+
+      if (mostrarTabla){
+        obtenerVenta();
+      }}, [mostrarTabla]);
 
   useEffect(() => {
     if (mostrarTabla) {
@@ -101,7 +54,7 @@ const Venta = () => {
         <Tabla listaVentas={venta} />
       ) : (
         <NuevoReg
-          setMostrarTabla={setMostrarTabla}
+          funcionMostrarTabla={setMostrarTabla}
           listaVentas={venta}
           setVenta={setVenta}
         />)}
@@ -110,10 +63,211 @@ const Venta = () => {
   );
 };
 
+const FilaVenta =({ venta, setEjecutarConsulta}) =>{
+  const [edit, setEdit] = useState(false);
+  const [infoNuevaVenta, setinfoNuevaVenta] = useState({
+    IDventa: venta.IDventa,
+    Cant: venta.Cant,
+    PrecioUni: venta.PrecioUni,
+    Fecha: venta.Fecha,
+    IDcliente: venta.IDcliente,
+    nameCliente: venta.nameCliente,
+    Monto: venta.Monto,
+    nameVendedor: venta.nameVendedor,
+    Estado: venta.Estado,
+  });
+
+  const actualizarVenta = async () => {
+    console.log(infoNuevaVenta);
+        const options = {
+           method: 'PATCH',
+           url: 'http://localhost:5000/api/ventas/:id',
+           headers: {'Content-Type': 'application/json'},
+         data: {...infoNuevaVenta, id:venta._id}
+        };
+          
+          await axios.request(options).then(function (response) {
+            console.log(response.data);
+            toast.success('Venta actualizado');
+          }).catch(function (error) {
+            console.error(error);
+            toast.error('Error actualizando venta');
+          });
+  };
+
+  const deleteVenta = async () => {
+    const options = {
+      method: 'DELETE',
+      url: 'http://localhost:5000/api/ventas/:id',
+      headers: {'Content-Type': 'application/json'},
+      data: {id: venta._id}
+    };
+    
+    axios.request(options).then(function (response) {
+      console.log(response.data);
+      toast.success('Venta eliminado');
+    }).catch(function (error) {
+      console.error(error);
+      toast.error('Error eliminando venta');
+    });
+  };
+
+  return(
+    <tr>
+      {edit ? (
+        <>
+          <td>
+            <input
+              className='bg-gray-50 border border-gray-600 p-2 rounded-lg m-2'
+              type='number'
+              value={infoNuevaVenta.Cant}
+              onChange={(e) => setinfoNuevaVenta({ ...infoNuevaVenta, Cant: e.target.value })}
+            />
+          </td>
+          <td>
+            <input
+              className='bg-gray-50 border border-gray-600 p-2 rounded-lg m-2'
+              type='number'
+              value={infoNuevaVenta.PrecioUni}
+              onChange={(e) =>
+                setinfoNuevaVenta({ ...infoNuevaVenta, PrecioUni: e.target.value })
+              }
+            />
+          </td>
+          <td>
+            <input
+              className='bg-gray-50 border border-gray-600 p-2 rounded-lg m-2'
+              type='date'
+              value={infoNuevaVenta.Fecha}
+              onChange={(e) =>
+                setinfoNuevaVenta({ ...infoNuevaVenta, Fecha: e.target.value })
+              }
+            />
+          </td>
+          <td>
+            <input
+              className='bg-gray-50 border border-gray-600 p-2 rounded-lg m-2'
+              type='number'
+              value={infoNuevaVenta.IDcliente}
+              onChange={(e) =>
+                setinfoNuevaVenta({ ...infoNuevaVenta, IDcliente: e.target.value })
+              }
+            />
+          </td>
+          <td>
+            <input
+              className='bg-gray-50 border border-gray-600 p-2 rounded-lg m-2'
+              type='text'
+              value={infoNuevaVenta.nameCliente}
+              onChange={(e) =>
+                setinfoNuevaVenta({ ...infoNuevaVenta, nameCliente: e.target.value })
+              }
+            />
+          </td>
+          <td>
+            <input
+              className='bg-gray-50 border border-gray-600 p-2 rounded-lg m-2'
+              type='number'
+              value={infoNuevaVenta.Monto}
+              onChange={(e) =>
+                setinfoNuevaVenta({ ...infoNuevaVenta, Monto: e.target.value })
+              }
+            />
+          </td>
+          <td>
+            <input
+              className='bg-gray-50 border border-gray-600 p-2 rounded-lg m-2'
+              type='text'
+              value={infoNuevaVenta.nameVendedor}
+              onChange={(e) =>
+                setinfoNuevaVenta({ ...infoNuevaVenta, nameVendedor: e.target.value })
+              }
+            />
+          </td>
+          <td>
+            <select 
+                name="Estado" 
+                required
+                value={infoNuevaVenta.Estado}
+                onChange={(e) =>
+                setinfoNuevaVenta({ ...infoNuevaVenta, Estado: e.target.value })
+              }
+                >
+                    <option disabled value={0}>
+                        Seleccione una opcion
+                    </option>
+                    <option>Completada</option>
+                    <option>En proceso</option>
+                    <option>Cancelada</option>
+            </select>
+
+          <input
+              className='bg-gray-50 border border-gray-600 p-2 rounded-lg m-2'
+              type='slect'
+              value={infoNuevaVenta.Fecha}
+              onChange={(e) =>
+                setinfoNuevaVenta({ ...infoNuevaVenta, Fecha: e.target.value })
+              }
+            /> 
+          </td>
+        </>
+      ) : (
+        <>
+          <td>{venta.IDventa}</td>
+          <td>{venta.Cant}</td>
+          <td>{venta.PrecioUni}</td>
+          <td>{venta.Fecha}</td>
+          <td>{venta.IDcliente}</td>
+          <td>{venta.nameCliente}</td>
+          <td>{venta.Monto}</td>
+          <td>{venta.nameVendedor}</td>
+          <td>{venta.Estado}</td>
+        </>
+      )}
+      <td>
+        <div className='flex w-full justify-around'>
+          {edit ? (
+            <>
+              <button
+                onClick={() => actualizarVenta()}
+                type='submit'
+                className='mx-2 px-3 py-2 bg-green-500 text-white hover:bg-green-700 rounded-md shadow-md'
+                >
+                  Confirmar edicion
+                </button>
+              <button
+                // onClick={() => setEdit(!edit)}
+                className='mx-2 px-3 py-2 bg-red-500 text-white hover:bg-red-700 rounded-md shadow-md'
+              >
+                Cancelar edición
+              </button>
+            </>
+          ) : (
+            <div className='flex justify-around'>
+              <button className='mx-2 px-3 py-2 bg-green-500 text-white hover:bg-green-700 rounded-md shadow-md'
+              onClick={() => setEdit(!edit)}
+              type='button'
+              > Editar </button>
+
+              <button className='mx-2 px-3 py-2 bg-red-500 text-white hover:bg-red-700 rounded-md shadow-md'
+              onClick={() => deleteVenta()}
+              type='submit'
+              > Eliminar </button>
+            </div>
+          )}
+        </div>
+      </td>
+    </tr>
+  );
+};
+
 const Tabla = ({listaVentas}) => {
+
+  const form = useRef(null);
   useEffect(() => {
-    console.log('este es el listado de vehiculos en el componente de tabla', listaVentas);
+    console.log('Listado de ventas', listaVentas);
   }, [listaVentas]);
+  
   return (
       <div className='flex flex-col items-center justify-center w-full' >
           <h2 className='text-2xl font-extrabold text-gray-800' >Todas la ventas</h2>
@@ -134,20 +288,11 @@ const Tabla = ({listaVentas}) => {
               <tbody>
                   {listaVentas.map((venta)=>{
                       return(
-                          <tr>
-                              <td>{venta.IDventa}</td>
-                              <td>{venta.Cant}</td>
-                              <td>{venta.PrecioUni}</td>
-                              <td>{venta.Fecha}</td>
-                              <td>{venta.IDcliente}</td>
-                              <td>{venta.nameCliente}</td>
-                              <td>{venta.Monto}</td>
-                              <td>{venta.nameVendedor}</td>
-                              <td>{venta.Estado}</td>
-                              <td className='flex'><button className='mx-2 px-3 py-2 bg-green-500 text-white hover:bg-green-700 rounded-md shadow-md'> Editar </button>
-                              <button className='mx-2 px-3 py-2 bg-red-500 text-white hover:bg-red-700 rounded-md shadow-md'> Eliminar </button></td>
-                          </tr>
-                      );
+                      <FilaVenta
+                        key={nanoid()}
+                        venta={venta}
+                      />
+                    );
                   })}
               </tbody>
           </table>
@@ -155,10 +300,10 @@ const Tabla = ({listaVentas}) => {
   );
 }
 
-const NuevoReg = ({setMostrarTabla, listaVentas, setVenta}) => {
+const NuevoReg = ({funcionMostrarTabla}) => {
   const form = useRef(null);
 
-  const submitForm = (e) => {
+  const submitForm = async (e) => {
   e.preventDefault();
   const fd = new FormData(form.current);
   
@@ -167,9 +312,34 @@ const NuevoReg = ({setMostrarTabla, listaVentas, setVenta}) => {
     nuevaVenta[key] = value;
   });
   
-  toast.success('Usuario agregado');
-  setMostrarTabla(true);
-  setVenta([...listaVentas, nuevaVenta]);
+  const options = {
+    method: 'POST',
+    url: 'http://localhost:5000/api/ventas',
+    headers: {'Content-Type': 'application/json'},
+    data: {
+      IDventa: nuevaVenta.IDventa,
+      Cant: nuevaVenta.Cant,
+      PrecioUni: nuevaVenta.PrecioUni,
+      Fecha: nuevaVenta.Fecha,
+      IDcliente: nuevaVenta.IDcliente,
+      nameCliente: nuevaVenta.nameCliente,
+      Monto: nuevaVenta.Monto,
+      nameVendedor: nuevaVenta.nameVendedor,
+      Estado: nuevaVenta.Estado,
+      }
+    };
+    
+     await axios
+       .request(options)
+       .then(function (response) {
+       console.log(response.data);
+       toast.success('Venta agregada con exito');
+       }).catch(function (error) {
+         console.error(error);
+         toast.error('Error creando la venta');
+     });
+
+funcionMostrarTabla(true);
   
 };
 
@@ -288,6 +458,7 @@ const NuevoReg = ({setMostrarTabla, listaVentas, setVenta}) => {
                   </select>
               </label>
               <button
+              className='bg-gray-500'
               type='submit'
               // className='col-span-2 bg-green-400 p-2 rounded-full shadow-md hover:bg-green-600 text-white'
               >
