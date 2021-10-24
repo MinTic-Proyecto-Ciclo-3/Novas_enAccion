@@ -26,7 +26,10 @@ function App() {
       <Auth0Provider
       domain="novatos.us.auth0.com"
       clientId="r5VH0CqFv7O5kKgmZAQbDUdGbkgIYzt1"
-      redirectUri={window.location.origin}>
+      redirectUri={window.location.origin}
+      audience ='api-novatos'
+      >
+      
     <div className='App'>
       <DarkModeContext.Provider value={{ darkMode, setDarkMode }}>
         <Router>
