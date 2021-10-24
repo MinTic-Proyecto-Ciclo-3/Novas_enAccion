@@ -13,7 +13,7 @@ import Registro from 'pages/auth/Registro';
 import AuthLayout from 'layouts/AuthLayout';
 import { DarkModeContext } from 'context/darkMode';
 import Usuarios from './pages/Usuarios';
-
+import { Auth0Provider } from "@auth0/auth0-react";
 
 
 function App() {
@@ -23,6 +23,10 @@ function App() {
   }, [darkMode]);
 
   return (
+      <Auth0Provider
+      domain="novatos.us.auth0.com"
+      clientId="r5VH0CqFv7O5kKgmZAQbDUdGbkgIYzt1"
+      redirectUri={window.location.origin}>
     <div className='App'>
       <DarkModeContext.Provider value={{ darkMode, setDarkMode }}>
         <Router>
@@ -68,6 +72,7 @@ function App() {
         </Router>
       </DarkModeContext.Provider>
     </div>
+    </Auth0Provider>
   );
 }
 

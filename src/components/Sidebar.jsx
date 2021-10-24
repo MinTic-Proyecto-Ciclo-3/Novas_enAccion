@@ -2,8 +2,10 @@ import React from 'react';
 import ImagenLogo from './ImagenLogo';
 import { Link, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Sidebar = () => {
+  const { logout } = useAuth0();
   return (
     <nav className='hidden sm:flex sm:w-72 h-full flex-col bg-green-600 --tw-bg-opacity: 1;
     background-color: rgba(16, 185, 129, var(--tw-bg-opacity)) p-4 sidebar'>
@@ -17,7 +19,9 @@ const Sidebar = () => {
         <Ruta icono='fas fa-users' ruta='/admin/Usuarios' nombre='Usuarios' />
       </div>
       <Link to='/'>
-        <button className='bg-gray-800 hover:bg-gray-900 text-white font-bold py-3 px-6 rounded-full'>Cerrar Sesión</button>
+        <button 
+        onClick={() => logout({ returnTo: window.location.origin })}
+        className='bg-gray-800 hover:bg-gray-900 text-white font-bold py-3 px-6 rounded-full'>Cerrar Sesión</button>
       </Link>
     </nav>
   );
