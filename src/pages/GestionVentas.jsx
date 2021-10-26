@@ -9,8 +9,15 @@ const Venta = () => {
   const [venta, setVenta] = useState([]);
   const [textoBoton, setTextoBoton] = useState('Nuevo registro');
 
+  const getToken = () =>{
+    return `Bearer ${localStorage.getItem('token')}`;
+}
+
   const obtenerVenta = async () =>{
-    const options = {method: 'GET', url: 'http://localhost:5000/api/ventas'};
+    const options = {method: 'GET',
+    url: 'http://localhost:5000/api/ventas',
+     headers: {
+      Authorization: getToken()}};
 
     await axios
       .request(options)
@@ -77,12 +84,16 @@ const FilaVenta =({ venta, setEjecutarConsulta}) =>{
     Estado: venta.Estado,
   });
 
+  const getToken = () =>{
+    return `Bearer ${localStorage.getItem('token')}`;
+}
+  
   const actualizarVenta = async () => {
     console.log(infoNuevaVenta);
         const options = {
            method: 'PATCH',
            url: 'http://localhost:5000/api/ventas/:id',
-           headers: {'Content-Type': 'application/json'},
+           headers: {'Content-Type': 'application/json', Authorization: getToken()},
          data: {...infoNuevaVenta, id:venta._id}
         };
           
@@ -99,7 +110,7 @@ const FilaVenta =({ venta, setEjecutarConsulta}) =>{
     const options = {
       method: 'DELETE',
       url: 'http://localhost:5000/api/ventas/:id',
-      headers: {'Content-Type': 'application/json'},
+      headers: {'Content-Type': 'application/json', Authorization: getToken()},
       data: {id: venta._id}
     };
     
@@ -312,10 +323,14 @@ const NuevoReg = ({funcionMostrarTabla}) => {
     nuevaVenta[key] = value;
   });
   
+  const getToken = () =>{
+    return `Bearer ${localStorage.getItem('token')}`;
+}
+
   const options = {
     method: 'POST',
     url: 'http://localhost:5000/api/ventas',
-    headers: {'Content-Type': 'application/json'},
+    headers: {'Content-Type': 'application/json', Authorization: getToken()},
     data: {
       IDventa: nuevaVenta.IDventa,
       Cant: nuevaVenta.Cant,

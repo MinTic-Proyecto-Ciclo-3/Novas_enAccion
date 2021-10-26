@@ -10,9 +10,18 @@ const Usuarios = () => {
     const [textoBoton, setTextoBoton] = useState('Crear Nuevo Usuario');
     const [usuarios, setUsuarios] = useState([]);
     
-    
+    const getToken = () =>{
+        return `Bearer ${localStorage.getItem('token')}`;
+    }
+
     const obtenerUsuarios = async () =>{
-        const options = {method: 'GET', url: 'http://localhost:5000/usuarios'};
+        const options = {
+            method: 'GET',
+            url: 'http://localhost:5000/usuarios',
+            headers: {
+                Authorization: getToken()
+            }
+        };
 
     await axios
     .request(options)
@@ -56,6 +65,10 @@ const Usuarios = () => {
 }
 
 const FilaUsuario = ({usuarios})=>{
+    const getToken = () =>{
+        return `Bearer ${localStorage.getItem('token')}`;
+    }
+
     const [edit,setEdit] = useState(false);
     const [infoNuevoUsuario, setInfoNuevoUsuario] = useState({
         nombre:usuarios.nombre,
@@ -68,7 +81,7 @@ const FilaUsuario = ({usuarios})=>{
         const options = {
             method: 'PATCH',
             url: 'http://localhost:5000/usuarios/editar',
-            headers: {'Content-Type': 'application/json'},
+            headers: {'Content-Type': 'application/json', Authorization: getToken()},
             data: {...infoNuevoUsuario, id:usuarios._id}
           };
           
@@ -85,7 +98,7 @@ const FilaUsuario = ({usuarios})=>{
         const options = {
             method: 'DELETE',
             url: 'http://localhost:5000/usuarios/eliminar',
-            headers: {'Content-Type': 'application/json'},
+            headers: {'Content-Type': 'application/json',Authorization: getToken()},
             data: {id: usuarios._id}
           };
           
@@ -213,10 +226,14 @@ const FormularioUsuarios = (
     nuevoUsuario[key] = value;
         });
 
+        const getToken = () =>{
+            return `Bearer ${localStorage.getItem('token')}`;
+        }
+
     const options = {
         method: 'POST',
         url: 'http://localhost:5000/usuarios/nuevo',
-        headers: {'Content-Type': 'application/json'},
+        headers: {'Content-Type': 'application/json', Authorization: getToken()},
         data: {nombre: nuevoUsuario.nombre,
             tipo: nuevoUsuario.tipo,
             estado: nuevoUsuario.estado},
@@ -246,11 +263,10 @@ const FormularioUsuarios = (
             placeholder='nombre' type="text" />
             <select 
             required
-            
-            
+                 
             className='bg-gray-100 border border-gray-300 px-2 rounded-lg m-2' 
             name='tipo'>
-                <option disabled>Seleccione una opción</option>
+                <option >Seleccione una opción</option>
                 <option >Administrador</option>
                 <option >Vendedor</option>
                 <option >Cliente</option>
