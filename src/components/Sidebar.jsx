@@ -9,7 +9,7 @@ const Sidebar = () => {
 
   const cerrarSesion = () =>{
     logout({returnTo: 'https://pacific-sea-96272.herokuapp.com/'},
-    localStorage.setItem('toker',null));
+    localStorage.setItem('token',null));
   }
 
   return (
