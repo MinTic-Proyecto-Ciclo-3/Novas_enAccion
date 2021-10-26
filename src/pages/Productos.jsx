@@ -1,11 +1,10 @@
-import React from 'react'
-import { useEffect, useState, useRef } from 'react'
+import React, {useEffect, useState, useRef} from 'react'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { nanoid } from 'nanoid';
 import axios from "axios";
 
-const Productos = () => {
+const MasterProductos = () => {
     const [mostrarTabla, setMostrarTabla] = useState(true);
     const [textoBoton, setTextoBoton] = useState('Crear Nuevo Producto');
     const [productos, setProductos] = useState([]);
@@ -16,7 +15,7 @@ const Productos = () => {
 
     const obtenerProductos = async () =>{
         const options = {method: 'GET',
-        url: 'https://mighty-hollows-54223.herokuapp.com/api/productos/',
+        url: 'http://localhost:5000/api/productos',
          headers: {
           Authorization: getToken()}};
 
@@ -90,7 +89,7 @@ const TablaProductos = ({ listaProductos})=> {
                 <thead>
                     <tr>
                         <th className='pr-4 py-3'>Código producto</th>
-                        <th className='pr-4 py-3'>Nombre producto</th>
+                        <th className='pr-4 py-3' >Nombre producto</th>
                         <th className='pr-4 py-3'>Precio</th>
                         <th className='pr-4 py-3'>Cantidad disponible</th>
                         <th className='pr-4 py-3'>Acciones</th>
@@ -124,7 +123,7 @@ const FilaProducto =({productos}) => {
         console.log(infoNuevoProducto);
         const options = {
             method: 'PATCH',
-            url: 'https://mighty-hollows-54223.herokuapp.com/api/productos/:id/',
+            url: 'http://localhost:5000/api/productos/:id',
             headers: {'Content-Type': 'application/json', Authorization: getToken()},
             data: {...infoNuevoProducto, id:productos._id}
           };
@@ -141,7 +140,7 @@ const FilaProducto =({productos}) => {
     const eliminarProducto = () =>{
         const options = {
             method: 'DELETE',
-            url: 'https://mighty-hollows-54223.herokuapp.com/api/productos/:id/',
+            url: 'http://localhost:5000/api/productos/:id',
             headers: {'Content-Type': 'application/json', Authorization: getToken()},
             data: {id: productos._id}
           };
@@ -255,7 +254,7 @@ const AgregarProducto = ({
         }
         const options = {
             method: 'POST',
-            url: 'https://mighty-hollows-54223.herokuapp.com/api/productos/',
+            url: 'http://localhost:5000/api/productos',
             headers: {'Content-Type': 'application/json', Authorization: getToken()},
             data: {codigo: nuevoProducto.codigo,
                 nombre: nuevoProducto.nombre,
@@ -342,4 +341,4 @@ const AgregarProducto = ({
       </div>
     )
 }
-export default Productos;
+export default MasterProductos;
