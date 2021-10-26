@@ -90,7 +90,7 @@ const TablaProductos = ({ listaProductos})=> {
                 <thead>
                     <tr>
                         <th className='pr-4 py-3'>Código producto</th>
-                        <th className='pr-4 py-3' >Nombre producto</th>
+                        <th className='pr-4 py-3'>Nombre producto</th>
                         <th className='pr-4 py-3'>Precio</th>
                         <th className='pr-4 py-3'>Cantidad disponible</th>
                         <th className='pr-4 py-3'>Acciones</th>
