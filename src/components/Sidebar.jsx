@@ -5,7 +5,13 @@ import { useEffect, useState } from 'react';
 import { useAuth0 } from "@auth0/auth0-react";
 
 const Sidebar = () => {
-  const { logout } = useAuth0();
+  const {user, logout } = useAuth0();
+
+  const cerrarSesion = () =>{
+    logout({returnTo: 'https://pacific-sea-96272.herokuapp.com/'},
+    localStorage.setItem('toker',null));
+  }
+
   return (
     <nav className='hidden sm:flex sm:w-72 h-full flex-col bg-green-600 --tw-bg-opacity: 1;
     background-color: rgba(16, 185, 129, var(--tw-bg-opacity)) p-4 sidebar'>
@@ -20,7 +26,7 @@ const Sidebar = () => {
       </div>
       <Link to='/'>
         <button 
-        onClick={() => logout({ returnTo: window.location.origin })}
+        onClick={() => cerrarSesion()}
         className='bg-gray-800 hover:bg-gray-900 text-white font-bold py-3 px-6 rounded-full'>Cerrar Sesión</button>
       </Link>
     </nav>
