@@ -1,0 +1,67 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.tabla {
+  padding: 10px;
+     
+}
+
+td, th {
+  padding: 10px;
+  /* width: 25%; */
+  /* border: 1px solid #ddd; */
+  text-align: center;
+}
+
+.tabla th {
+  background-color: rgb(46, 180, 28);
+  color: white;
+  text-align: center;
+}
+
+.tabla tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.tabla tr:hover {
+  background-color: #ddd;
+  cursor: pointer;
+}
+
+input{
+  border-radius: 5px;
+  -webkit-appearance: none;
+}
+
+form{
+  padding: 10px;
+  margin: 10px;
+}
+
+form input, form textarea{
+  
+  font-family: "Roboto", sans-serif;
+  padding: 2px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box; 
+  border: none; 
+  color: #525c66; 
+  font-size: 1em;
+  resize: horizontal; 
+}
+
+form button {
+	display: block;
+	padding: 5px 10px;
+  margin: 1px 2px 1px 2px;
+	border-radius: 10px;
+	font-size: 1em; 
+	color: 	white;
+  font-family: "Roboto", sans-serif;
+}
+
+form button:hover{
+	background-color: #045e93;
+}

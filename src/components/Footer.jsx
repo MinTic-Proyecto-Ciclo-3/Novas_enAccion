@@ -1,15 +1,13 @@
-import React from 'react'
+import React from 'react';
+
 
 const Footer = () => {
-    return (
-        <footer>
-            <ul>
-            <li> Telefonos: 6123234 - 6231313</li>
-            <li> Correo Electronico: noobstore@correo.com</li>
-            </ul>
-            
-        </footer>
-    )
-}
+  return <div className='bg-gray-400 font-extrabold '><ul>
 
-export default Footer
+  <li><a href="http://">Proyecto academico para MinTic2022</a></li>
+            <li>&#300;Team Novatos en Acción ♥</li>
+
+  </ul></div>;
+};
+
+export default Footer;
