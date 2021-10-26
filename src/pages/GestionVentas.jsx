@@ -274,13 +274,29 @@ const FilaVenta =({ venta, setEjecutarConsulta}) =>{
 
 const Tabla = ({listaVentas}) => {
 
-  const form = useRef(null);
-  useEffect(() => {
-    console.log('Listado de ventas', listaVentas);
-  }, [listaVentas]);
+  const [ventasFiltrados, setventasFiltrados] = useState(listaVentas);
+    const [busqueda, setBusqueda] = useState('');
+
+    useEffect(()=>{
+        console.log('busqueda', busqueda);
+        setventasFiltrados(
+        listaVentas.filter(elemento=>{
+            return JSON.stringify(elemento).toLowerCase().includes(busqueda.toLowerCase());
+        }));
+    }, [busqueda, listaVentas]);
+
+    const form = useRef(null);
+  // const form = useRef(null);
+  // useEffect(() => {
+  //   console.log('Listado de ventas', listaVentas);
+  // }, [listaVentas]);
   
   return (
       <div className='flex flex-col items-center justify-center w-full' >
+         <input placeholder='Buscar'
+        onChange={(e)=> setBusqueda(e.target.value)}
+        className='border border-gray-500 px-3 rounded-md self-center'  />
+        <form ref={form} className='w-full'>
           <h2 className='text-2xl font-extrabold text-gray-800' >Todas la ventas</h2>
           <table className="tabla">
               <thead>
@@ -297,7 +313,7 @@ const Tabla = ({listaVentas}) => {
                   
               </thead>
               <tbody>
-                  {listaVentas.map((venta)=>{
+                  {ventasFiltrados.map((venta)=>{
                       return(
                       <FilaVenta
                         key={nanoid()}
@@ -307,6 +323,7 @@ const Tabla = ({listaVentas}) => {
                   })}
               </tbody>
           </table>
+          </form>
       </div>
   );
 }
