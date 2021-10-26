@@ -4,7 +4,7 @@ import PublicLayout from 'layouts/PublicLayout';
 import Index from 'pages/Index';
 import Admin from 'pages/admin/Index';
 import Venta from './pages/GestionVentas';
-import Productos from 'pages/Productos';
+import MasterProductos from 'pages/Productos';
 
 import Login from 'pages/auth/Login';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
@@ -38,7 +38,7 @@ function App() {
               <PrivateLayout>
                 <Switch>
                   <Route path='/admin/Productos'>
-                    <Productos/>
+                    <MasterProductos/>
                   </Route>
                   <Route path='/admin/Ventas'>
                     <Venta/>
