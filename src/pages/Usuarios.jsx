@@ -140,7 +140,7 @@ const FilaUsuario = ({usuarios})=>{
                         onClick={()=> 
                             actualizarUsuario()
                             }   
-                        type='button'>
+                        type='submit'>
                         <i                    
                         className='fas fa-check text-green-700 mx-2 hover:text-green-500'/>
                         </button>
@@ -159,7 +159,7 @@ const FilaUsuario = ({usuarios})=>{
                         </button>
                         <button 
                         onClick={()=>eliminarUsuario()}
-                        type='button'>
+                        type='submit'>
                         <i 
                         className='fas fa-trash text-red-700 mx-2 hover:text-red-500'  />
                          </button>
