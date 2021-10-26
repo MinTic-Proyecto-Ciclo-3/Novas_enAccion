@@ -17,7 +17,7 @@ const Usuarios = () => {
     const obtenerUsuarios = async () =>{
         const options = {
             method: 'GET',
-            url: 'https://mighty-hollows-54223.herokuapp.com/usuarios',
+            url: 'https://mighty-hollows-54223.herokuapp.com/usuarios/',
             headers: {
                 Authorization: getToken()
             }
@@ -80,7 +80,7 @@ const FilaUsuario = ({usuarios})=>{
         console.log(infoNuevoUsuario);
         const options = {
             method: 'PATCH',
-            url: 'https://mighty-hollows-54223.herokuapp.com/usuarios/editar',
+            url: 'https://mighty-hollows-54223.herokuapp.com/usuarios/editar/',
             headers: {'Content-Type': 'application/json', Authorization: getToken()},
             data: {...infoNuevoUsuario, id:usuarios._id}
           };
@@ -97,7 +97,7 @@ const FilaUsuario = ({usuarios})=>{
     const eliminarUsuario = () =>{
         const options = {
             method: 'DELETE',
-            url: 'https://mighty-hollows-54223.herokuapp.com/usuarios/eliminar',
+            url: 'https://mighty-hollows-54223.herokuapp.com/usuarios/eliminar/',
             headers: {'Content-Type': 'application/json',Authorization: getToken()},
             data: {id: usuarios._id}
           };
@@ -232,7 +232,7 @@ const FormularioUsuarios = (
 
     const options = {
         method: 'POST',
-        url: 'https://mighty-hollows-54223.herokuapp.com/usuarios/nuevo',
+        url: 'https://mighty-hollows-54223.herokuapp.com/usuarios/nuevo/',
         headers: {'Content-Type': 'application/json', Authorization: getToken()},
         data: {nombre: nuevoUsuario.nombre,
             tipo: nuevoUsuario.tipo,

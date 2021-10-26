@@ -15,7 +15,7 @@ const Venta = () => {
 
   const obtenerVenta = async () =>{
     const options = {method: 'GET',
-    url: 'https://mighty-hollows-54223.herokuapp.com/api/ventas',
+    url: 'https://mighty-hollows-54223.herokuapp.com/api/ventas/',
      headers: {
       Authorization: getToken()}};
 
@@ -92,7 +92,7 @@ const FilaVenta =({ venta, setEjecutarConsulta}) =>{
     console.log(infoNuevaVenta);
         const options = {
            method: 'PATCH',
-           url: 'https://mighty-hollows-54223.herokuapp.com/api/ventas/:id',
+           url: 'https://mighty-hollows-54223.herokuapp.com/api/ventas/:id/',
            headers: {'Content-Type': 'application/json', Authorization: getToken()},
          data: {...infoNuevaVenta, id:venta._id}
         };
@@ -109,7 +109,7 @@ const FilaVenta =({ venta, setEjecutarConsulta}) =>{
   const deleteVenta = async () => {
     const options = {
       method: 'DELETE',
-      url: 'https://mighty-hollows-54223.herokuapp.com/api/ventas/:id',
+      url: 'https://mighty-hollows-54223.herokuapp.com/api/ventas/:id/',
       headers: {'Content-Type': 'application/json', Authorization: getToken()},
       data: {id: venta._id}
     };
@@ -346,7 +346,7 @@ const NuevoReg = ({funcionMostrarTabla}) => {
 
   const options = {
     method: 'POST',
-    url: 'https://mighty-hollows-54223.herokuapp.com/api/ventas',
+    url: 'https://mighty-hollows-54223.herokuapp.com/api/ventas/',
     headers: {'Content-Type': 'application/json', Authorization: getToken()},
     data: {
       IDventa: nuevaVenta.IDventa,

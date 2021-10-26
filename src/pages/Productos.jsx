@@ -16,7 +16,7 @@ export const MasterProductos = () => {
 
     const obtenerProductos = async () =>{
         const options = {method: 'GET',
-        url: 'https://mighty-hollows-54223.herokuapp.com/api/productos',
+        url: 'https://mighty-hollows-54223.herokuapp.com/api/productos/',
          headers: {
           Authorization: getToken()}};
 
@@ -124,7 +124,7 @@ const FilaProducto =({productos}) => {
         console.log(infoNuevoProducto);
         const options = {
             method: 'PATCH',
-            url: 'https://mighty-hollows-54223.herokuapp.com/api/productos/:id',
+            url: 'https://mighty-hollows-54223.herokuapp.com/api/productos/:id/',
             headers: {'Content-Type': 'application/json', Authorization: getToken()},
             data: {...infoNuevoProducto, id:productos._id}
           };
@@ -141,7 +141,7 @@ const FilaProducto =({productos}) => {
     const eliminarProducto = () =>{
         const options = {
             method: 'DELETE',
-            url: 'https://mighty-hollows-54223.herokuapp.com/api/productos/:id',
+            url: 'https://mighty-hollows-54223.herokuapp.com/api/productos/:id/',
             headers: {'Content-Type': 'application/json', Authorization: getToken()},
             data: {id: productos._id}
           };
@@ -255,7 +255,7 @@ const AgregarProducto = ({
         }
         const options = {
             method: 'POST',
-            url: 'https://mighty-hollows-54223.herokuapp.com/api/productos',
+            url: 'https://mighty-hollows-54223.herokuapp.com/api/productos/',
             headers: {'Content-Type': 'application/json', Authorization: getToken()},
             data: {codigo: nuevoProducto.codigo,
                 nombre: nuevoProducto.nombre,
