@@ -24,9 +24,6 @@
     "test": "craco test",
     "eject": "react-scripts eject"
   },
-  "engines": {
-    "node": "14.x"
-  },
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -45,7 +42,9 @@
       "last 1 safari version"
     ]
   },
- 
+  "engines": {
+    "node": "14.x"
+  },
   "devDependencies": {
     "autoprefixer": "^9",
     "postcss": "^7",
