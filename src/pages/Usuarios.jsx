@@ -176,11 +176,10 @@ const TablaUsuarios = ({listausuarios}) => {
     return( 
         <div className='flex flex-col items-center justify-center w-full'>
         <input placeholder='Buscar'
-        
         onChange={(e)=> setBusqueda(e.target.value)}
         className='border border-gray-500 px-3 rounded-md self-center'  />
         <form ref={form} className='w-full'>
-        <table className='tabla w-full'>
+        <table className='tabla w-full '>
         <thead>
             <tr>
                 <th className='border bg-gray-200 border-gray-400 px-2'> Nombre de Usuario </th>
