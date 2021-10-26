@@ -25,7 +25,7 @@ function App() {
       <Auth0Provider
       domain="novatos.us.auth0.com"
       clientId="r5VH0CqFv7O5kKgmZAQbDUdGbkgIYzt1"
-      redirectUri='https://pacific-sea-96272.herokuapp.com/admin/'
+      redirectUri='https://pacific-sea-96272.herokuapp.com/'
       audience ='api-novatos'
       >
       
