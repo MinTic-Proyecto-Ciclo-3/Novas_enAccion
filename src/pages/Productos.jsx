@@ -6,13 +6,19 @@ import { nanoid } from 'nanoid';
 import axios from "axios";
 
 export const MasterProductos = () => {
-
     const [mostrarTabla, setMostrarTabla] = useState(true);
     const [textoBoton, setTextoBoton] = useState('Crear Nuevo Producto');
     const [productos, setProductos] = useState([]);
 
+    const getToken = () =>{
+        return `Bearer ${localStorage.getItem('token')}`;
+    }
+
     const obtenerProductos = async () =>{
-        const options = {method: 'GET', url: 'http://localhost:5000/productos'};
+        const options = {method: 'GET',
+        url: 'http://localhost:5000/api/productos',
+         headers: {
+          Authorization: getToken()}};
 
     await axios
     .request(options)
@@ -74,7 +80,6 @@ const TablaProductos = ({ listaProductos})=> {
 
     const form = useRef(null);
 
-
     return(
         <div className='flex flex-col items-center justify-center w-full'>
         <input placeholder='Buscar'
@@ -111,12 +116,16 @@ const FilaProducto =({productos}) => {
         cantidad:productos.cantidad
     });
 
+    const getToken = () =>{
+        return `Bearer ${localStorage.getItem('token')}`;
+    }
+
     const actualizarProducto = async () =>{
         console.log(infoNuevoProducto);
         const options = {
             method: 'PATCH',
-            url: 'http://localhost:5000/productos/editar',
-            headers: {'Content-Type': 'application/json'},
+            url: 'http://localhost:5000/api/productos/:id',
+            headers: {'Content-Type': 'application/json', Authorization: getToken()},
             data: {...infoNuevoProducto, id:productos._id}
           };
           
@@ -132,8 +141,8 @@ const FilaProducto =({productos}) => {
     const eliminarProducto = () =>{
         const options = {
             method: 'DELETE',
-            url: 'http://localhost:5000/productos/eliminar',
-            headers: {'Content-Type': 'application/json'},
+            url: 'http://localhost:5000/api/productos/:id',
+            headers: {'Content-Type': 'application/json', Authorization: getToken()},
             data: {id: productos._id}
           };
           
@@ -151,19 +160,37 @@ const FilaProducto =({productos}) => {
         <tr>
             {edit? (
         <>
-            <td><input  type='text' 
-            value={infoNuevoProducto.codigo}
-            onChange={(e)=>setInfoNuevoProducto({...infoNuevoProducto, codigo: (e).target.value})}/></td>
-            <td><input className='border border-gray-400 mb-4 rounded-md' type='text' 
-            value={infoNuevoProducto.nombre}
-            onChange={(e)=>setInfoNuevoProducto({...infoNuevoProducto, nombre: (e).target.value})}/></td>
-            <td><input className='border border-gray-400 mb-4 rounded-md' type='text' 
-            value={infoNuevoProducto.precio}
-            onChange={(e)=>setInfoNuevoProducto({...infoNuevoProducto, precio: (e).target.value})}/></td>
-            <td><input className='border border-gray-400 mb-4 rounded-md' type='text' 
-            value={infoNuevoProducto.cantidad}
-            onChange={(e)=>setInfoNuevoProducto({...infoNuevoProducto, precio: (e).target.value})}/></td>
-        </> ) : (   
+            <td>
+                <input  
+                type='text' 
+                value={infoNuevoProducto.codigo}
+                onChange={(e)=>setInfoNuevoProducto({...infoNuevoProducto, codigo: (e).target.value})}
+                />
+                </td>
+            <td>
+                <input 
+                className='border border-gray-400 mb-4 rounded-md' 
+                type='text' 
+                value={infoNuevoProducto.nombre}
+                onChange={(e)=>setInfoNuevoProducto({...infoNuevoProducto, nombre: (e).target.value})}
+                />
+                </td>
+            <td>
+                <input 
+                className='border border-gray-400 mb-4 rounded-md' type='text' 
+                value={infoNuevoProducto.precio}
+                onChange={(e)=>setInfoNuevoProducto({...infoNuevoProducto, precio: (e).target.value})}
+                />
+                </td>
+            <td>
+                <input 
+                className='border border-gray-400 mb-4 rounded-md' type='text' 
+                value={infoNuevoProducto.cantidad}
+                onChange={(e)=>setInfoNuevoProducto({...infoNuevoProducto, precio: (e).target.value})}
+                />
+                </td>
+        </>     
+            ) : (   
         <>
                 <td>{productos.codigo} </td>
                 <td>{productos.nombre} </td>
@@ -222,10 +249,14 @@ const AgregarProducto = ({
         fd.forEach((value, key) => {
         nuevoProducto[key] = value;
         });
+
+        const getToken = () =>{
+            return `Bearer ${localStorage.getItem('token')}`;
+        }
         const options = {
             method: 'POST',
-            url: 'http://localhost:5000/productos/nuevo',
-            headers: {'Content-Type': 'application/json'},
+            url: 'http://localhost:5000/api/productos',
+            headers: {'Content-Type': 'application/json', Authorization: getToken()},
             data: {codigo: nuevoProducto.codigo,
                 nombre: nuevoProducto.nombre,
                 precio: nuevoProducto.precio,
