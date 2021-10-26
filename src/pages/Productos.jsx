@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { nanoid } from 'nanoid';
 import axios from "axios";
 
-export const MasterProductos = () => {
+const Productos = () => {
     const [mostrarTabla, setMostrarTabla] = useState(true);
     const [textoBoton, setTextoBoton] = useState('Crear Nuevo Producto');
     const [productos, setProductos] = useState([]);
@@ -342,4 +342,4 @@ const AgregarProducto = ({
       </div>
     )
 }
-export default MasterProductos;
+export default Productos;
