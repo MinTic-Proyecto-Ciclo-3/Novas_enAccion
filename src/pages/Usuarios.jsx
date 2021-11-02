@@ -9,44 +9,34 @@ const Usuarios = () => {
     const [mostrarTabla, setMostrarTabla] = useState(true);
     const [textoBoton, setTextoBoton] = useState('Crear Nuevo Usuario');
     const [usuarios, setUsuarios] = useState([]);
-    const [ejecutarConsulta, setEjecutarConsulta] = useState(true);
-
-    useEffect(() =>{
-        const obtenerUsuarios = async () =>{
-            const options = {
-                method: 'GET',
-                url: 'https://mighty-hollows-54223.herokuapp.com/usuarios/',
-                headers: {
-                    Authorization: getToken()
-                }
-            };
     
-        await axios
-        .request(options)
-        .then(function (response) {
-        console.log(response.data);
-        setUsuarios(response.data);
-        }).catch(function (error) {
-        console.error(error);
-        });};    
-
-        if (ejecutarConsulta){
-            obtenerUsuarios();
-            setEjecutarConsulta(false);
-          }
-
-    }, [ejecutarConsulta]);
-
-
     const getToken = () =>{
         return `Bearer ${localStorage.getItem('token')}`;
     }
 
+    const obtenerUsuarios = async () =>{
+        const options = {
+            method: 'GET',
+            url: 'https://mighty-hollows-54223.herokuapp.com/usuarios/',
+            headers: {
+                Authorization: getToken()
+            }
+        };
+
+    await axios
+    .request(options)
+    .then(function (response) {
+    console.log(response.data);
+    setUsuarios(response.data);
+    }).catch(function (error) {
+    console.error(error);
+    });}; 
+       
     useEffect(() => {
-        if (mostrarTabla){
-        setEjecutarConsulta(true);
-        }
-    }, [mostrarTabla]);
+
+    if (mostrarTabla){
+      obtenerUsuarios();
+    }}, [mostrarTabla]);
 
     useEffect(() => {
         if (mostrarTabla){
@@ -64,7 +54,7 @@ const Usuarios = () => {
         className='text-black bg-indigo-400 p-5 rounded-full w-28 m-2 ml-80'>
         {textoBoton}</button>
     </div>
-        {mostrarTabla ? (<TablaUsuarios listausuarios={usuarios} setEjecutarConsulta={setEjecutarConsulta}/>) :
+        {mostrarTabla ? (<TablaUsuarios listausuarios={usuarios}/>) :
          (<FormularioUsuarios
             funcionMostrarTabla={setMostrarTabla} 
             listausuarios = {usuarios}
@@ -75,7 +65,7 @@ const Usuarios = () => {
     )    
 }
 
-const FilaUsuario = ({usuarios, setEjecutarConsulta})=>{
+const FilaUsuario = ({usuarios})=>{
   
     const [edit,setEdit] = useState(false);
     const [infoNuevoUsuario, setInfoNuevoUsuario] = useState({
@@ -99,7 +89,7 @@ const FilaUsuario = ({usuarios, setEjecutarConsulta})=>{
           await axios.request(options).then(function (response) {
             console.log(response.data);
             toast.success('Usuario actualizado');
-            setEjecutarConsulta(true);
+           
           }).catch(function (error) {
             console.error(error);
             toast.error('Error actualizando usuario');
@@ -120,7 +110,7 @@ const FilaUsuario = ({usuarios, setEjecutarConsulta})=>{
           axios.request(options).then(function (response) {
             console.log(response.data);
             toast.success('Usuario eliminado');
-            setEjecutarConsulta(true);
+       
           }).catch(function (error) {
             console.error(error);
             toast.error('Error eliminando usuario');
@@ -190,7 +180,7 @@ const FilaUsuario = ({usuarios, setEjecutarConsulta})=>{
     );    
 }
 
-const TablaUsuarios = ({listausuarios, setEjecutarConsulta}) => {
+const TablaUsuarios = ({listausuarios}) => {
     const [usuariosFiltrados, setUsuariosFiltrados] = useState(listausuarios);
     const [busqueda, setBusqueda] = useState('');
 
@@ -222,8 +212,7 @@ const TablaUsuarios = ({listausuarios, setEjecutarConsulta}) => {
         </thead>
         <tbody>
             {usuariosFiltrados.map((usuarios) => {
-                return <FilaUsuario key={nanoid()} usuarios={usuarios}
-                 setEjecutarConsulta={setEjecutarConsulta} />;
+                return <FilaUsuario key={nanoid()} usuarios={usuarios} />;
             })}
         </tbody>
         </table>   
