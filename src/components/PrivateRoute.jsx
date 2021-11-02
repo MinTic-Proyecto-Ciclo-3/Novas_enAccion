@@ -20,17 +20,16 @@ const PrivateRoute = ({children}) => {
 
     if(isLoading) return <div>Loading...</div>
     
-    return isAuthenticated ? (
-    <> {children}</>) : (
-        <div className= 'flex flex-col text-8xl text-red-500 items-center'>
-            No estás autorizado
-            <Link to='/'>
-            <button            
-            className=' bg-gray-400 text-gray-900 text-3xl p-2 rounded-lg'>
-                VOLVER AL HOME</button>
-            </Link>
-        </div>
-    )
+    if(!isAuthenticated){<div className= 'flex flex-col text-8xl text-red-500 items-center'>
+    No estás autorizado
+    <Link to='/'>
+    <button            
+    className=' bg-gray-400 text-gray-900 text-3xl p-2 rounded-lg'>
+        VOLVER AL HOME</button>
+    </Link>
+</div>}
+
+    return <> {children}</>;
     
 };
 
