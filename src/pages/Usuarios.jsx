@@ -65,10 +65,7 @@ const Usuarios = () => {
 }
 
 const FilaUsuario = ({usuarios})=>{
-    const getToken = () =>{
-        return `Bearer ${localStorage.getItem('token')}`;
-    }
-
+  
     const [edit,setEdit] = useState(false);
     const [infoNuevoUsuario, setInfoNuevoUsuario] = useState({
         nombre:usuarios.nombre,
@@ -77,6 +74,9 @@ const FilaUsuario = ({usuarios})=>{
     });
 
     const actualizarUsuario = async () =>{
+        const getToken = () =>{
+            return `Bearer ${localStorage.getItem('token')}`;
+        }
         console.log(infoNuevoUsuario);
         const options = {
             method: 'PATCH',
@@ -95,6 +95,9 @@ const FilaUsuario = ({usuarios})=>{
     };
 
     const eliminarUsuario = () =>{
+        const getToken = () =>{
+            return `Bearer ${localStorage.getItem('token')}`;
+        }
         const options = {
             method: 'DELETE',
             url: 'https://mighty-hollows-54223.herokuapp.com/usuarios/eliminar/',
@@ -140,11 +143,13 @@ const FilaUsuario = ({usuarios})=>{
                         onClick={()=> 
                             actualizarUsuario()
                             }   
-                        type='submit'>
+                        type='button'>
                         <i                    
                         className='fas fa-check text-green-700 mx-2 hover:text-green-500'/>
                         </button>
-                        <button type='button'>
+                        <button 
+                        onClick={()=> setEdit(!edit)}
+                        type='button'>
                         <i 
                           className='fas fa-trash text-red-700 mx-2 hover:text-red-500'  />
                           </button>
@@ -159,7 +164,7 @@ const FilaUsuario = ({usuarios})=>{
                         </button>
                         <button 
                         onClick={()=>eliminarUsuario()}
-                        type='submit'>
+                        type='button'>
                         <i 
                         className='fas fa-trash text-red-700 mx-2 hover:text-red-500'  />
                          </button>
