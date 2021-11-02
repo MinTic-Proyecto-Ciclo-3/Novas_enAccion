@@ -59,13 +59,14 @@ const Usuarios = () => {
             funcionMostrarTabla={setMostrarTabla} 
             listausuarios = {usuarios}
            />)}
-           <FilaUsuario obtenerUsuarios = {obtenerUsuarios}/>
+           <FilaUsuario /*obtenerUsuarios = {obtenerUsuarios}*/
+           funcionMostrarTabla={setMostrarTabla}/>
         <ToastContainer position="bottom-center" autoClose={5000}/>
     </div>
     )    
 }
 
-const FilaUsuario = ({usuarios,obtenerUsuarios})=>{
+const FilaUsuario = ({usuarios,funcionMostrarTabla})=>{
   
     const [edit,setEdit] = useState(false);
     const [infoNuevoUsuario, setInfoNuevoUsuario] = useState({
@@ -74,11 +75,11 @@ const FilaUsuario = ({usuarios,obtenerUsuarios})=>{
         estado:usuarios.estado
     });
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        if (mostrarTabla){
-          obtenerUsuarios();
-        }}, [actualizarUsuario,eliminarUsuario]);
+    //     if (mostrarTabla){
+    //       obtenerUsuarios();
+    //     }}, [actualizarUsuario,eliminarUsuario]);
 
     const actualizarUsuario = async () =>{
         const getToken = () =>{
@@ -95,6 +96,7 @@ const FilaUsuario = ({usuarios,obtenerUsuarios})=>{
           await axios.request(options).then(function (response) {
             console.log(response.data);
             toast.success('Usuario actualizado');
+            funcionMostrarTabla(true);
           }).catch(function (error) {
             console.error(error);
             toast.error('Error actualizando usuario');
@@ -115,6 +117,7 @@ const FilaUsuario = ({usuarios,obtenerUsuarios})=>{
           axios.request(options).then(function (response) {
             console.log(response.data);
             toast.success('Usuario eliminado');
+            funcionMostrarTabla(true);
           }).catch(function (error) {
             console.error(error);
             toast.error('Error eliminando usuario');
