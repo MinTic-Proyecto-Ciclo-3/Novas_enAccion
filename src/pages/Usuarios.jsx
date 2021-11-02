@@ -9,34 +9,44 @@ const Usuarios = () => {
     const [mostrarTabla, setMostrarTabla] = useState(true);
     const [textoBoton, setTextoBoton] = useState('Crear Nuevo Usuario');
     const [usuarios, setUsuarios] = useState([]);
+    const [ejecutarConsulta, setEjecutarConsulta] = useState(true);
+
+    useEffect(() =>{
+        const obtenerUsuarios = async () =>{
+            const options = {
+                method: 'GET',
+                url: 'https://mighty-hollows-54223.herokuapp.com/usuarios/',
+                headers: {
+                    Authorization: getToken()
+                }
+            };
     
+        await axios
+        .request(options)
+        .then(function (response) {
+        console.log(response.data);
+        setUsuarios(response.data);
+        }).catch(function (error) {
+        console.error(error);
+        });};    
+
+        if (ejecutarConsulta){
+            obtenerUsuarios();
+            setEjecutarConsulta(false);
+          }
+
+    }, [ejecutarConsulta]);
+
+
     const getToken = () =>{
         return `Bearer ${localStorage.getItem('token')}`;
     }
 
-    const obtenerUsuarios = async () =>{
-        const options = {
-            method: 'GET',
-            url: 'https://mighty-hollows-54223.herokuapp.com/usuarios/',
-            headers: {
-                Authorization: getToken()
-            }
-        };
-
-    await axios
-    .request(options)
-    .then(function (response) {
-    console.log(response.data);
-    setUsuarios(response.data);
-    }).catch(function (error) {
-    console.error(error);
-    });}; 
-       
     useEffect(() => {
-
-    if (mostrarTabla){
-      obtenerUsuarios();
-    }}, [mostrarTabla]);
+        if (mostrarTabla){
+        setEjecutarConsulta(true);
+        }
+    }, [mostrarTabla]);
 
     useEffect(() => {
         if (mostrarTabla){
@@ -54,19 +64,18 @@ const Usuarios = () => {
         className='text-black bg-indigo-400 p-5 rounded-full w-28 m-2 ml-80'>
         {textoBoton}</button>
     </div>
-        {mostrarTabla ? (<TablaUsuarios listausuarios={usuarios}/>) :
+        {mostrarTabla ? (<TablaUsuarios listausuarios={usuarios} setEjecutarConsulta={setEjecutarConsulta}/>) :
          (<FormularioUsuarios
             funcionMostrarTabla={setMostrarTabla} 
             listausuarios = {usuarios}
            />)}
-           <FilaUsuario /*obtenerUsuarios = {obtenerUsuarios}*/
-           funcionMostrarTabla={setMostrarTabla}/>
+         
         <ToastContainer position="bottom-center" autoClose={5000}/>
     </div>
     )    
 }
 
-const FilaUsuario = ({usuarios,funcionMostrarTabla})=>{
+const FilaUsuario = ({usuarios, setEjecutarConsulta})=>{
   
     const [edit,setEdit] = useState(false);
     const [infoNuevoUsuario, setInfoNuevoUsuario] = useState({
@@ -74,12 +83,6 @@ const FilaUsuario = ({usuarios,funcionMostrarTabla})=>{
         tipo:usuarios.tipo,
         estado:usuarios.estado
     });
-
-    // useEffect(() => {
-
-    //     if (mostrarTabla){
-    //       obtenerUsuarios();
-    //     }}, [actualizarUsuario,eliminarUsuario]);
 
     const actualizarUsuario = async () =>{
         const getToken = () =>{
@@ -96,7 +99,7 @@ const FilaUsuario = ({usuarios,funcionMostrarTabla})=>{
           await axios.request(options).then(function (response) {
             console.log(response.data);
             toast.success('Usuario actualizado');
-            funcionMostrarTabla(true);
+            setEjecutarConsulta(true);
           }).catch(function (error) {
             console.error(error);
             toast.error('Error actualizando usuario');
@@ -117,7 +120,7 @@ const FilaUsuario = ({usuarios,funcionMostrarTabla})=>{
           axios.request(options).then(function (response) {
             console.log(response.data);
             toast.success('Usuario eliminado');
-            funcionMostrarTabla(true);
+            setEjecutarConsulta(true);
           }).catch(function (error) {
             console.error(error);
             toast.error('Error eliminando usuario');
@@ -187,7 +190,7 @@ const FilaUsuario = ({usuarios,funcionMostrarTabla})=>{
     );    
 }
 
-const TablaUsuarios = ({listausuarios}) => {
+const TablaUsuarios = ({listausuarios, setEjecutarConsulta}) => {
     const [usuariosFiltrados, setUsuariosFiltrados] = useState(listausuarios);
     const [busqueda, setBusqueda] = useState('');
 
@@ -219,7 +222,8 @@ const TablaUsuarios = ({listausuarios}) => {
         </thead>
         <tbody>
             {usuariosFiltrados.map((usuarios) => {
-                return <FilaUsuario key={nanoid()} usuarios={usuarios} />;
+                return <FilaUsuario key={nanoid()} usuarios={usuarios}
+                 setEjecutarConsulta={setEjecutarConsulta} />;
             })}
         </tbody>
         </table>   
