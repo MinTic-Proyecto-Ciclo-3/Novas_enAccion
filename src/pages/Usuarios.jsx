@@ -58,13 +58,14 @@ const Usuarios = () => {
          (<FormularioUsuarios
             funcionMostrarTabla={setMostrarTabla} 
             listausuarios = {usuarios}
-            funcionAgregarUsuario={setUsuarios} />)}
+           />)}
+           <FilaUsuario obtenerUsuarios = {obtenerUsuarios}/>
         <ToastContainer position="bottom-center" autoClose={5000}/>
     </div>
     )    
 }
 
-const FilaUsuario = ({usuarios})=>{
+const FilaUsuario = ({usuarios,obtenerUsuarios})=>{
   
     const [edit,setEdit] = useState(false);
     const [infoNuevoUsuario, setInfoNuevoUsuario] = useState({
@@ -72,6 +73,12 @@ const FilaUsuario = ({usuarios})=>{
         tipo:usuarios.tipo,
         estado:usuarios.estado
     });
+
+    useEffect(() => {
+
+        if (mostrarTabla){
+          obtenerUsuarios();
+        }}, [actualizarUsuario,eliminarUsuario]);
 
     const actualizarUsuario = async () =>{
         const getToken = () =>{
@@ -141,7 +148,8 @@ const FilaUsuario = ({usuarios})=>{
                            <>
                         <button 
                         onClick={()=> 
-                            actualizarUsuario()
+                            actualizarUsuario(),
+                            setEdit(!edit)
                             }   
                         type='button'>
                         <i                    
